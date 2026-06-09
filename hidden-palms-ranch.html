@@ -869,8 +869,9 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 /* Old three-beat guide layout removed; replaced by the .feature-block pattern. */
 .iphone--lg { max-width: 320px; }
 .iphone--sm { max-width: 220px; }
-/* Payoff video: poster frame + play-button overlay; native controls on click */
-.payoff-video { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; background: #1C1C1E; }
+/* Payoff video: blurred poster tease -> sharp on play -> blurred again behind the end buttons */
+.payoff-video { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; background: #1C1C1E; filter: blur(7px) brightness(0.82); transition: filter 0.35s ease; }
+#heroPhone.is-playing .payoff-video { filter: none; }
 .video-play {
   position: absolute; inset: 0; width: 100%; height: 100%;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
@@ -895,6 +896,43 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
   color: #fff; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
 }
+/* ===== Video takeover: fuzzed/darkened page behind the enlarged phone ===== */
+.video-backdrop {
+  position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+  z-index: 90;
+  background: rgba(8, 15, 24, 0.62);
+  -webkit-backdrop-filter: blur(10px) saturate(0.9);
+  backdrop-filter: blur(10px) saturate(0.9);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.32s ease, visibility 0s linear 0.32s;
+}
+.video-backdrop.open { opacity: 1; visibility: visible; transition: opacity 0.32s ease; }
+/* End-state buttons: live in the overlay (not the scaled phone), centered over it */
+.video-end {
+  position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+  z-index: 96;
+  display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  pointer-events: none;
+}
+.video-end.show { display: flex; }
+.video-btn {
+  pointer-events: auto;
+  font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.04em;
+  border: 0; border-radius: 999px; padding: 15px 30px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 9px;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+.video-btn svg { display: block; }
+.video-btn-ghost {
+  background: rgba(255, 255, 255, 0.14); color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.45); backdrop-filter: blur(2px);
+}
+.video-btn-ghost:hover { background: rgba(255, 255, 255, 0.24); transform: translateY(-1px); }
+.video-btn-primary {
+  background: var(--accent); color: #fff; box-shadow: 0 10px 26px rgba(0, 0, 0, 0.42);
+}
+.video-btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
 @media (max-width: 768px) {
   .guide-cols { grid-template-columns: 1fr; gap: 48px; }
   .guide-phone-row { flex-direction: column; align-items: center; }
@@ -1306,7 +1344,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
     <div class="section-header">
       <h2 class="headline-lg" style="font-weight:800;font-size:clamp(28px,3.5vw,44px);margin-bottom:10px;">The Guest Experience</h2>
       <div class="guest-intro">
-        <p class="body-lead" style="font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--body);margin-bottom:12px;">What a guest sees after a <strong>Private Trail Ride.</strong></p>
+        <p class="body-lead" style="font-size:clamp(18px,2vw,24px);font-weight:400;color:var(--body);margin-bottom:12px;">What a guest sees after a <strong>Private Trail Ride.</strong></p>
         <p class="body-lead mt-16">Minutes after returning from the trail, the guide shows a QR code. The guest scans it. Everything below loads on their phone.</p>
       </div>
     </div>
@@ -1467,7 +1505,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   <div class="container">
     <div class="section-header">
       <h2 class="headline-lg" style="font-weight:800;font-size:clamp(28px,3.5vw,44px);margin-bottom:10px;">The Guide Experience</h2>
-      <p style="font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--body);margin-bottom:0;line-height:1.4;">Built for a phone, <strong>on the trail.</strong></p>
+      <p style="font-size:clamp(18px,2vw,24px);font-weight:400;color:var(--body);margin-bottom:0;line-height:1.4;">Built for a phone, <strong>on the trail.</strong></p>
     </div>
     <!-- 8 feature blocks; phone alternates left/right (even blocks --flip), video block (7) is the hero -->
     <div class="feature-block">
@@ -1538,14 +1576,13 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 
     <!-- The star: the upload flow video (hero treatment) -->
     <div class="feature-block feature-block--hero">
-      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
-        <video class="payoff-video" poster="images/guide-app-upload-poster.jpg"
+      <div class="feature-phone"><div class="iphone" id="heroPhone"><div class="iphone-screen">
+        <video class="payoff-video" id="payoffVideo" poster="images/guide-app-upload-poster.jpg"
                muted playsinline preload="none" controlslist="nodownload"
                aria-label="The upload flow: Rosie running the progress bar through to the QR reveal">
           <source src="images/guide-app-upload.mp4" type="video/mp4">
         </video>
-        <button type="button" class="video-play" aria-label="Play the upload flow video"
-                onclick="var v=this.parentNode.querySelector('video'); v.controls=true; this.style.display='none'; v.play();">
+        <button type="button" class="video-play" id="payoffPlay" aria-label="Play the upload flow video">
           <span class="video-play-icon" aria-hidden="true"></span>
           <span class="video-play-label">Watch the upload flow</span>
         </button>
@@ -1554,7 +1591,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
         <div class="feature-num">07</div>
         <div class="feature-title">Watch this video:<br>From Submit to QR Code.</div>
         <div class="feature-subtitle">A real screen recording, not a simulation.</div>
-        <p class="feature-body">The progress bar started as a percentage counter. Then a horse emoji. Then Rosie appeared in the <a href="https://toddherrbach.com/guide-playbook" style="color:var(--accent);text-decoration:underline;text-decoration-color:rgba(19,85,199,0.35);text-underline-offset:3px;">guide playbook</a> first, a character built to help trail guides understand why the system matters. It felt wrong to leave the upload app with just a number and a boring emoji.</p>
+        <p class="feature-body">The progress bar started as a percentage counter. Then a horse emoji. Then Rosie appeared in the guide playbook first, a character built to help trail guides understand why the system matters. It felt wrong to leave the upload app with just a number and a boring emoji.</p>
 
 <p class="feature-body" style="margin-top:16px">About ten hours of iteration followed. ChatGPT generated frames but couldn't hold a consistent gait. Animation apps didn't fit the style. A barn finish scene looked great until it crowded out her running space. Someone watching said to let it go.</p>
 
@@ -1562,7 +1599,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
       </div>
     </div>
 
-    <div class="feature-block feature-block--alt feature-block--flip">
+    <div class="feature-block feature-block--alt feature-block--flip" id="todays-uploads">
       <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
         <img src="images/todays-uploads.png" alt="Today's uploads dashboard: every submission with its QR code and link">
       </div></div></div>
@@ -1789,6 +1826,151 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
     </div>
   </div>
 </footer>
+
+<!-- Video takeover overlay (fuzzed/darkened page behind the enlarged phone) -->
+<div class="video-backdrop" id="videoBackdrop" aria-hidden="true"></div>
+<div class="video-end" id="videoEnd" aria-hidden="true">
+  <button type="button" class="video-btn video-btn-ghost" id="videoWatchAgain">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 2.5-6.3"/><path d="M3 4v4h4"/></svg>
+    Watch again
+  </button>
+  <button type="button" class="video-btn video-btn-primary" id="videoResume">
+    Resume case study
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M19 12l-7 7-7-7"/></svg>
+  </button>
+</div>
+
+<script>
+(function () {
+  var HEADER = 60;
+  var video    = document.getElementById('payoffVideo');
+  var phone    = document.getElementById('heroPhone');     // the .iphone device
+  var playBtn  = document.getElementById('payoffPlay');
+  var backdrop = document.getElementById('videoBackdrop');
+  var endPanel = document.getElementById('videoEnd');
+  var watchAgain = document.getElementById('videoWatchAgain');
+  var resumeBtn  = document.getElementById('videoResume');
+  var target   = document.getElementById('todays-uploads');
+  if (!video || !phone || !playBtn) return;
+
+  var cell = phone.parentNode;     // .feature-phone grid cell
+  var isOpen = false, busy = false, touchY = null, padComp = 0;
+
+  function lockScroll() {
+    padComp = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = 'hidden';
+    if (padComp > 0) document.body.style.paddingRight = padComp + 'px';
+  }
+  function unlockScroll() {
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+  }
+
+  function smoothScrollTo(el, duration) {
+    var startY = window.pageYOffset;
+    var endY = el.getBoundingClientRect().top + window.pageYOffset - (HEADER + 20);
+    var dist = endY - startY, start = null;
+    function ease(t){ return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2)/2; } // easeInOutQuad
+    function step(ts){
+      if (start === null) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      window.scrollTo(0, startY + dist * ease(p));
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function openVideo() {
+    if (isOpen || busy) return;
+    isOpen = true;
+    var first = phone.getBoundingClientRect();
+    cell.style.minHeight = first.height + 'px';     // keep the grid cell from collapsing
+    lockScroll();
+    backdrop.classList.add('open'); backdrop.setAttribute('aria-hidden', 'false');
+
+    phone.style.position = 'fixed';
+    phone.style.margin = '0';
+    phone.style.left = first.left + 'px';
+    phone.style.top = first.top + 'px';
+    phone.style.width = first.width + 'px';
+    phone.style.zIndex = '95';
+    phone.style.transformOrigin = 'top left';
+    phone.style.transform = 'none';
+    phone.style.willChange = 'transform';
+
+    var availH = window.innerHeight - HEADER, availW = window.innerWidth;
+    var k = Math.min((availW * 0.96) / first.width, (availH * 0.96) / first.height);
+    var tW = first.width * k, tH = first.height * k;
+    var dx = (availW - tW) / 2 - first.left;
+    var dy = HEADER + (availH - tH) / 2 - first.top;
+
+    phone.classList.add('is-playing');   // sharpen video
+    playBtn.style.display = 'none';
+    video.currentTime = 0;
+    var pr = video.play(); if (pr && pr.catch) pr.catch(function(){});
+
+    requestAnimationFrame(function () { requestAnimationFrame(function () {
+      phone.style.transition = 'transform 560ms cubic-bezier(.22,.61,.36,1)';
+      phone.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(' + k + ')';
+    }); });
+
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('wheel', onSwipe, { passive: true });
+    document.addEventListener('touchstart', onTouchStart, { passive: true });
+    document.addEventListener('touchmove', onTouchMove, { passive: true });
+  }
+
+  function closeVideo(onward) {
+    if (!isOpen || busy) return;
+    busy = true; isOpen = false;
+    video.pause();
+    endPanel.classList.remove('show'); endPanel.setAttribute('aria-hidden', 'true');
+    phone.classList.remove('is-playing');         // re-blur
+    backdrop.classList.remove('open'); backdrop.setAttribute('aria-hidden', 'true');
+
+    document.removeEventListener('keydown', onKey);
+    document.removeEventListener('wheel', onSwipe);
+    document.removeEventListener('touchstart', onTouchStart);
+    document.removeEventListener('touchmove', onTouchMove);
+
+    phone.style.transition = 'transform 520ms cubic-bezier(.22,.61,.36,1)';
+    phone.style.transform = 'none';               // glide back to its inline spot
+
+    var settled = false;
+    function finish() {
+      if (settled) return; settled = true;
+      phone.removeAttribute('style');             // fully restore to flow
+      cell.style.minHeight = '';
+      playBtn.style.display = '';
+      unlockScroll();
+      busy = false;
+      if (onward && target) smoothScrollTo(target, 650);   // one continuous motion: settle -> glide on
+    }
+    phone.addEventListener('transitionend', finish, { once: true });
+    setTimeout(finish, 600);                       // fallback if transitionend doesn't fire
+  }
+
+  function onKey(e){ if (e.key === 'Escape' || e.keyCode === 27) closeVideo(false); }
+  function onSwipe(){ closeVideo(true); }
+  function onTouchStart(e){ touchY = e.touches[0].clientY; }
+  function onTouchMove(e){
+    if (touchY !== null && Math.abs(e.touches[0].clientY - touchY) > 40) { touchY = null; closeVideo(true); }
+  }
+
+  playBtn.addEventListener('click', openVideo);
+  resumeBtn.addEventListener('click', function(){ closeVideo(true); });
+  watchAgain.addEventListener('click', function(){
+    endPanel.classList.remove('show'); endPanel.setAttribute('aria-hidden', 'true');
+    phone.classList.add('is-playing');
+    video.currentTime = 0; var pr = video.play(); if (pr && pr.catch) pr.catch(function(){});
+  });
+  backdrop.addEventListener('click', function(e){ if (e.target === backdrop) closeVideo(false); });
+  video.addEventListener('ended', function(){
+    phone.classList.remove('is-playing');         // re-blur the last frame
+    endPanel.classList.add('show'); endPanel.setAttribute('aria-hidden', 'false');
+  });
+})();
+</script>
 
 </body>
 </html>
