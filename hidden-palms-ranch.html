@@ -64,6 +64,7 @@ body {
   background: var(--light);
   -webkit-font-smoothing: antialiased;
 }
+html, body { overflow-x: hidden; }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 
@@ -456,23 +457,57 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 /* ═══════════════════════════════════════════════
    SECTION: GUEST EXPERIENCE
 ═══════════════════════════════════════════════ */
-.guest-section { background: var(--light); }
+.guest-section { background: var(--light); padding-top: 48px; padding-bottom: 0; }
 .guest-intro {
   max-width: 680px;
-  margin-bottom: 64px;
+  margin-bottom: 0;
 }
-/* Feature blocks: two-column phone + companion text (guest + guide sections) */
+/* Section header card: lifts the eyebrow/headline/intro off the section background */
+.section-header {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+}
+/* Feature blocks: full-bleed alternating stripes. Each block breaks out to the full
+   viewport width via the 100vw + negative-margin trick, then re-pads so its grid
+   content re-aligns to the 1100px container (content box 1020px). */
 .feature-block {
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 32px max(40px, calc((100vw - 1020px) / 2)) 56px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 56px;
   align-items: center;
-  margin-top: 64px;
 }
+.feature-block--alt { background: #faf8f4; }
 .feature-block--flip .feature-text  { order: 1; }
 .feature-block--flip .feature-phone { order: 2; }
-.feature-phone { display: flex; justify-content: center; }
+.feature-text {
+  background: #faf8f4;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 30px;
+}
+/* Card always contrasts with its stripe: white stripe gets a tan card,
+   cream (--alt) stripe gets a white card, hero gets a white card. */
+.feature-block--alt .feature-text  { background: #ffffff; }
+.feature-block--hero .feature-text { background: #ffffff; }
+.feature-phone {
+  display: flex; justify-content: center; align-items: center;
+}
 .feature-phone .iphone { max-width: 320px; width: 100%; }
+.feature-num {
+  color: var(--muted);
+  font-size: 10px; font-weight: 800; letter-spacing: 0.16em;
+  text-transform: uppercase; margin-bottom: 4px;
+}
 .feature-eyebrow {
   color: var(--accent-warm);
   font-size: 12px; font-weight: 800; letter-spacing: 0.1em;
@@ -480,16 +515,29 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 }
 .feature-title {
   color: var(--primary);
-  font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+  font-size: 22px; font-weight: 700; letter-spacing: 0.08em;
   text-transform: uppercase; margin-bottom: 12px;
 }
-.feature-body { color: #2a2a2a; font-size: 16px; line-height: 1.7; margin: 0; max-width: 42ch; }
-.feature-block--hero {
-  background: rgba(19, 85, 199, 0.05);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 36px;
+.feature-block--hero .feature-title { margin-bottom: 4px; }
+.feature-subtitle {
+  font-size: 16px; font-weight: 400; color: var(--body);
+  text-transform: none; letter-spacing: 0;
+  margin-top: 2px; margin-bottom: 0; line-height: 1.5;
 }
+.feature-body { color: #2a2a2a; font-size: 18px; line-height: 1.7; margin: 0; max-width: 42ch; }
+/* Hero texture: a whisper of the homepage hero behind each experience section */
+.guest-section, .guide-section { position: relative; overflow: hidden; }
+.guest-section::before, .guide-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('images/hero-texture.jpg') no-repeat center center;
+  background-size: cover;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+}
+.guest-section > .container, .guide-section > .container { position: relative; z-index: 1; }
 .phone-caption {
   font-size: 13px;
   font-weight: 700;
@@ -511,13 +559,16 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   text-wrap: pretty;
 }
 
+@media (max-width: 768px) {
+  .feature-block { padding-left: 20px; padding-right: 20px; }
+}
 @media (max-width: 600px) {
-  .feature-block { grid-template-columns: 1fr; gap: 22px; margin-top: 48px; }
+  .feature-block { grid-template-columns: 1fr; gap: 22px; padding-top: 40px; padding-bottom: 40px; }
   .feature-block .feature-text  { order: 1; }
   .feature-block .feature-phone { order: 2; }
   .feature-phone .iphone { max-width: 360px; }
-  .feature-block--hero { padding: 24px; }
   .hero-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 24px; }
+  .guest-section::before, .guide-section::before { opacity: 0.025; }
 }
 
 /* ─── iPhone Frame ─────────────────────────── */
@@ -533,18 +584,6 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   width: 100%;
   max-width: 280px;
   margin: 0 auto;
-}
-/* Dynamic Island */
-.iphone::before {
-  content: '';
-  position: absolute;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 88px; height: 25px;
-  background: #1C1C1E;
-  border-radius: 13px;
-  z-index: 10;
 }
 /* Volume buttons */
 .iphone::after {
@@ -563,6 +602,17 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   background: #1C1C1E;
   position: relative;
   aspect-ratio: 9 / 19.5;
+}
+/* Covers the captured iOS status bar (time, battery, wifi, recording dot)
+   with the bezel color so it reads as part of the frame. */
+.iphone-screen::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 44px;
+  background: #1C1C1E;
+  z-index: 5;
+  pointer-events: none;
 }
 .iphone-screen img {
   width: 100%;
@@ -763,7 +813,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 /* ═══════════════════════════════════════════════
    SECTION: GUIDE EXPERIENCE
 ═══════════════════════════════════════════════ */
-.guide-section { background: var(--mid); }
+.guide-section { background: var(--mid); padding-top: 48px; padding-bottom: 0; }
 .guide-cols {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -854,7 +904,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 /* ═══════════════════════════════════════════════
    SECTION: PHASE 2
 ═══════════════════════════════════════════════ */
-.phase2-section { background: var(--light); }
+.phase2-section { background: var(--light); padding-top: 64px; }
 .phase2-cols {
   display: grid;
   grid-template-columns: 1fr 1.4fr;
@@ -1253,10 +1303,12 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 <!-- ═══ GUEST EXPERIENCE ══════════════════════ -->
 <section class="section guest-section">
   <div class="container">
-    <h2 class="headline-lg" style="font-weight:800;font-size:clamp(28px,3.5vw,44px);margin-bottom:10px;">The Guest Experience</h2>
-    <div class="guest-intro">
-      <p class="body-lead" style="font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--body);margin-bottom:12px;">What a guest sees after a <strong>Private Trail Ride.</strong></p>
-      <p class="body-lead mt-16">Minutes after returning from the trail, the guide shows a QR code. The guest scans it. Everything below loads on their phone.</p>
+    <div class="section-header">
+      <h2 class="headline-lg" style="font-weight:800;font-size:clamp(28px,3.5vw,44px);margin-bottom:10px;">The Guest Experience</h2>
+      <div class="guest-intro">
+        <p class="body-lead" style="font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--body);margin-bottom:12px;">What a guest sees after a <strong>Private Trail Ride.</strong></p>
+        <p class="body-lead mt-16">Minutes after returning from the trail, the guide shows a QR code. The guest scans it. Everything below loads on their phone.</p>
+      </div>
     </div>
     <!-- 7 feature blocks; odd = phone left, even = text left (--flip) -->
     <div class="feature-block">
@@ -1264,16 +1316,18 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
         <img src="images/guest-scroll-1.png" alt="Guest photo page: branded hero, party name, and the featured photo">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">01</div>
         <div class="feature-title">Photos</div>
         <p class="feature-body">Their photos arrive in a branded experience minutes after they step off their horse.</p>
       </div>
     </div>
 
-    <div class="feature-block feature-block--flip">
+    <div class="feature-block feature-block--flip feature-block--alt">
       <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
         <img src="images/guest-scroll-2.png" alt="Guest photo page: the full photo grid from the visit">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">02</div>
         <div class="feature-title">The full gallery</div>
         <p class="feature-body">Guests can scan every photo from their visit, tap to enlarge, and heart their favorites to download individually. Version 2 adds a one-tap download of all photos as a zip file on both iPhone and Android.</p>
       </div>
@@ -1284,16 +1338,18 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
         <img src="images/guest-scroll-3.png" alt="Guest page: email yourself card with a 30 day download link">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">03</div>
         <div class="feature-title">Save your photos</div>
         <p class="feature-body">Guests enter their email to send the page link to their inbox so it does not disappear when they close the tab. On desktop, version 1 includes a zip download of all photos and favorited selections. Guide feedback shows 100% of guests complete this step.</p>
       </div>
     </div>
 
-    <div class="feature-block feature-block--flip">
+    <div class="feature-block feature-block--flip feature-block--alt">
       <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
         <img src="images/guest-scroll-4.png" alt="Guest page: guide tip cards with Venmo and Cash App links">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">04</div>
         <div class="feature-title">Guide tips</div>
         <p class="feature-body">Guide profiles and peer-to-peer payment links are managed in Airtable. Adding a new guide takes less than a minute. No code, no developer.</p>
       </div>
@@ -1304,16 +1360,18 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
         <img src="images/guest-scroll-5.png" alt="Guest page: review buttons for Google, TripAdvisor, and Yelp">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">05</div>
         <div class="feature-title">Leave a review</div>
         <p class="feature-body">The review prompt appears while guests are still surprised and delighted by the delivery. The drive home is the best window. We never ask again.</p>
       </div>
     </div>
 
-    <div class="feature-block feature-block--flip">
+    <div class="feature-block feature-block--flip feature-block--alt">
       <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
         <img src="images/guest-scroll-6.png" alt="Guest page: rebook cards for the next visit">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">06</div>
         <div class="feature-title">Come back and see us</div>
         <p class="feature-body">Follow-up offers are targeted to the visit type they just completed. The next logical step, not a generic rebook prompt.</p>
       </div>
@@ -1324,6 +1382,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
         <img src="images/guest-scroll-7.png" alt="Guest page: social follow buttons and footer">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">07</div>
         <div class="feature-title">Stay connected</div>
         <p class="feature-body">Coming in version 2: guests are invited to submit their own photos directly into the media system and share their social handles so we can tag them when we post.</p>
       </div>
@@ -1406,24 +1465,28 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 <!-- ═══ GUIDE EXPERIENCE ══════════════════════ -->
 <section class="section guide-section">
   <div class="container">
-    <h2 class="headline-lg" style="font-weight:800;font-size:clamp(28px,3.5vw,44px);margin-bottom:10px;">The Guide Experience</h2>
-    <p style="font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--body);margin-bottom:32px;line-height:1.4;">Built for a phone, <strong>on the trail.</strong></p>
-    <!-- 8 feature blocks; phone always on the left, video block is the hero -->
+    <div class="section-header">
+      <h2 class="headline-lg" style="font-weight:800;font-size:clamp(28px,3.5vw,44px);margin-bottom:10px;">The Guide Experience</h2>
+      <p style="font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--body);margin-bottom:0;line-height:1.4;">Built for a phone, <strong>on the trail.</strong></p>
+    </div>
+    <!-- 8 feature blocks; phone alternates left/right (even blocks --flip), video block (7) is the hero -->
     <div class="feature-block">
       <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
         <img src="images/guide-step-1.png" alt="Upload form Step 1: guest or party name typed in">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">01</div>
         <div class="feature-title">Party name</div>
         <p class="feature-body">This becomes the personalized greeting on the guest landing page.</p>
       </div>
     </div>
 
-    <div class="feature-block">
+    <div class="feature-block feature-block--alt feature-block--flip">
       <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
         <img src="images/guide-step-2.png" alt="Upload form Step 2: visit type selected">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">02</div>
         <div class="feature-title">Visit type</div>
         <p class="feature-body">Controls the follow-up offers the guest receives. Each visit type maps to the next logical path. The Horse Experience is a lead magnet. The follow-up frames it as an invitation for the parents to return for a trail ride now that the family has seen the ranch.</p>
       </div>
@@ -1434,16 +1497,18 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
         <img src="images/guide-step-3.png" alt="Upload form Step 3: the uploading guide's name">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">03</div>
         <div class="feature-title">Your name</div>
         <p class="feature-body">Records who submitted the form.</p>
       </div>
     </div>
 
-    <div class="feature-block">
+    <div class="feature-block feature-block--alt feature-block--flip">
       <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
         <img src="images/guide-step-4.png" alt="Upload form Step 4: guides on the visit checked">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">04</div>
         <div class="feature-title">Guides on this visit</div>
         <p class="feature-body">Triggers the correct tip cards on the guest page, each with that guide's peer-to-peer payment links.</p>
       </div>
@@ -1454,16 +1519,18 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
         <img src="images/guide-step-5.png" alt="Upload form Step 5: marketing permission with the required field warning">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">05</div>
         <div class="feature-title">Marketing permission</div>
         <p class="feature-body">Explicit consent with no default. The guide reads the prompt aloud to the group. The form will not submit until an answer is selected. Guides are trained to tell hesitant guests that if anything is ever posted they are not happy with, it comes down immediately, no questions asked.</p>
       </div>
     </div>
 
-    <div class="feature-block">
+    <div class="feature-block feature-block--alt feature-block--flip">
       <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
         <img src="images/guide-step-6.png" alt="Upload form: permission answered, form submitting">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">06</div>
         <div class="feature-title">Submit</div>
         <p class="feature-body">Takes the guide directly to the media upload screen.</p>
       </div>
@@ -1484,17 +1551,23 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
         </button>
       </div></div></div>
       <div class="feature-text">
-        <div class="feature-eyebrow">Watch this one</div>
-        <div class="feature-title">The upload flow</div>
-        <p class="feature-body">A real screen recording of the app, not a simulation. The character running the progress bar is Rosie, modeled after one of the ranch's own horses. Her animation frames were created in ChatGPT and refined for the app.</p>
+        <div class="feature-num">07</div>
+        <div class="feature-title">Watch this video:<br>From Submit to QR Code.</div>
+        <div class="feature-subtitle">A real screen recording, not a simulation.</div>
+        <p class="feature-body">The progress bar started as a percentage counter. Then a horse emoji. Then Rosie appeared in the <a href="https://toddherrbach.com/guide-playbook" style="color:var(--accent);text-decoration:underline;text-decoration-color:rgba(19,85,199,0.35);text-underline-offset:3px;">guide playbook</a> first, a character built to help trail guides understand why the system matters. It felt wrong to leave the upload app with just a number and a boring emoji.</p>
+
+<p class="feature-body" style="margin-top:16px">About ten hours of iteration followed. ChatGPT generated frames but couldn't hold a consistent gait. Animation apps didn't fit the style. A barn finish scene looked great until it crowded out her running space. Someone watching said to let it go.</p>
+
+<p class="feature-body" style="margin-top:16px">Rosie is modeled after one of the ranch's own horses. Even though a small percentage of users will appreciate attention to details like this, often they trigger a little smile at exactly the right moment for the user.</p>
       </div>
     </div>
 
-    <div class="feature-block">
+    <div class="feature-block feature-block--alt feature-block--flip">
       <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
         <img src="images/todays-uploads.png" alt="Today's uploads dashboard: every submission with its QR code and link">
       </div></div></div>
       <div class="feature-text">
+        <div class="feature-num">08</div>
         <div class="feature-title">Today's uploads</div>
         <p class="feature-body">Group rides sometimes include multiple separate parties. If a guest comes back asking for their link after the guide has moved on, today's uploads keeps every submission accessible. The list resets at the start of each new day. Guides can copy any link to their clipboard or open it directly to preview the guest page.</p>
       </div>
