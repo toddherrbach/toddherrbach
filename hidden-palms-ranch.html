@@ -515,12 +515,12 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 }
 .feature-title {
   color: var(--primary);
-  font-size: 22px; font-weight: 700; letter-spacing: 0.08em;
+  font-size: 22px; font-weight: 700; letter-spacing: 0.08em; line-height: 1.18;
   text-transform: uppercase; margin-bottom: 12px;
 }
 .feature-block--hero .feature-title { margin-bottom: 4px; }
 .feature-subtitle {
-  font-size: 16px; font-weight: 400; color: #2a2a2a;
+  font-size: 16px; font-weight: 500; color: #2a2a2a;
   text-transform: none; letter-spacing: 0;
   margin-top: 2px; margin-bottom: 0; line-height: 1.5;
 }
@@ -896,6 +896,8 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
   color: #fff; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
 }
+/* After the guest has watched + resumed: drop the blue play circle, leave only the thank-you line */
+.video-play.is-watched .video-play-icon { display: none; }
 /* ===== Video takeover: fuzzed/darkened page behind the enlarged phone ===== */
 .video-backdrop {
   position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
@@ -1589,7 +1591,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
       </div></div></div>
       <div class="feature-text">
         <div class="feature-num">07</div>
-        <div class="feature-title">Watch this video:<br>From Submit to QR<br>Code.</div>
+        <div class="feature-title">Watch this video:<br>From Submit<br>to QR Code</div>
         <div class="feature-subtitle">A real screen recording, not a simulation.</div>
         <p class="feature-body">The progress bar started as a percentage counter. Then a horse emoji. Then Rosie appeared in the guide playbook first, a character built to help trail guides understand why the system matters. It felt wrong to leave the upload app with just a number and a boring emoji.</p>
 
@@ -1856,6 +1858,21 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   var cell = phone.parentNode;     // .feature-phone grid cell
   var isOpen = false, busy = false, touchY = null, padComp = 0;
 
+  // "Thanks for watching" state: after they watch + resume, the play affordance becomes a
+  // thank-you line; if they scroll back up to the block, it reverts to the normal play button.
+  var labelEl = playBtn.querySelector('.video-play-label');
+  var heroBlock = phone.closest('.feature-block');
+  var watched = false, wasOut = false;
+  function setWatched(){ watched = true; wasOut = false; playBtn.classList.add('is-watched'); if (labelEl) labelEl.textContent = 'Thanks for watching'; }
+  function resetPlay(){ watched = false; wasOut = false; playBtn.classList.remove('is-watched'); if (labelEl) labelEl.textContent = 'Watch the upload flow'; }
+  if (heroBlock && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      var e = es[0];
+      if (!e.isIntersecting) { wasOut = true; }
+      else if (watched && wasOut) { resetPlay(); }
+    }, { threshold: 0.35 }).observe(heroBlock);
+  }
+
   function lockScroll() {
     padComp = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = 'hidden';
@@ -1894,6 +1911,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
     phone.style.left = first.left + 'px';
     phone.style.top = first.top + 'px';
     phone.style.width = first.width + 'px';
+    phone.style.maxWidth = 'none';   // base .iphone max-width:280 would otherwise clamp it once lifted out of .feature-phone
     phone.style.zIndex = '95';
     phone.style.transformOrigin = 'top left';
     phone.style.transform = 'none';
@@ -1946,6 +1964,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
       playBtn.style.display = '';
       unlockScroll();
       busy = false;
+      if (onward) setWatched();                            // they finished + moved on -> thank-you line
       if (onward && target) smoothScrollTo(target, 650);   // one continuous motion: settle -> glide on
     }
     phone.addEventListener('transitionend', finish, { once: true });
