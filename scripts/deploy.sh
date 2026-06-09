@@ -46,8 +46,12 @@ cd "$LOCAL_ROOT"
 #  -a  archive mode (preserves structure, timestamps, etc.)
 #  -z  compress data during transfer
 #  -i  itemize: print one line per file so you SEE exactly what changes
+#  --chmod=D755,F644  force web-safe permissions on the server (dirs 755,
+#       files 644) REGARDLESS of the local Mac perms. Without this, -a copies
+#       the local folder's permissions up; if the Mac repo is private (700/600)
+#       the server docroot becomes unreadable to Apache and the site 403s.
 #  We deliberately DO NOT use --delete, so nothing on the server is removed.
-RSYNC_FLAGS=(-a -z -i)
+RSYNC_FLAGS=(-a -z -i --chmod=D755,F644)
 
 # Things that must never be uploaded.
 RSYNC_EXCLUDES=(
