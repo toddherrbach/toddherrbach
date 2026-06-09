@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Todd Herrbach">
+<meta property="og:title" content="Todd Herrbach · Resume">
+<meta property="og:description" content="Product Engineer, AI-Native Builder, Systems Thinker. 15 years leading audio operations at a 20,000-seat NBA arena.">
+<meta property="og:image" content="https://toddherrbach.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://toddherrbach.com/todd-herrbach-resume.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Todd Herrbach · Resume">
+<meta name="twitter:description" content="Product Engineer, AI-Native Builder, Systems Thinker. 15 years leading audio operations at a 20,000-seat NBA arena.">
+<meta name="twitter:image" content="https://toddherrbach.com/og-image.png">
+<title>Todd Herrbach: Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+
+/* ══════════════════════════════════════════
+   TOKENS
+══════════════════════════════════════════ */
+:root {
+  --ink:     #1a1a1a;
+  --mid:     #3e3e3e;
+  --muted:   #6f665c;
+  --rule:    #d4d0c8;
+  --accent:  #1a3a2a;
+  --gold:    #9a7820;
+  --page:    #faf9f7;
+  --serif:   'DM Serif Display', Georgia, serif;
+  --sans:    'DM Sans', Helvetica, sans-serif;
+}
+
+/* ══════════════════════════════════════════
+   PAGE SHELL
+══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: #dedad4; }
+
+body {
+  font-family: var(--sans);
+  font-size: 9.2pt;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--page);
+  max-width: 8.5in;
+  margin: 0.5in auto;
+  padding: 0.6in 0.68in 0.65in;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.2);
+}
+
+/* ══════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════ */
+header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  padding-bottom: 0.12in;
+  border-bottom: 2px solid var(--accent);
+  gap: 1rem;
+}
+
+.name {
+  font-family: var(--serif);
+  font-size: 30pt;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.tagline {
+  font-size: 8.5pt;
+  font-weight: 500;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-top: 5px;
+}
+
+.contact {
+  text-align: right;
+  font-size: 8pt;
+  color: var(--mid);
+  line-height: 1.75;
+}
+
+.contact a {
+  color: var(--mid);
+  text-decoration: none;
+}
+
+.contact a:hover { color: var(--accent); }
+
+.contact .portfolio-url {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════════════
+   TWO-COLUMN BODY
+══════════════════════════════════════════ */
+.body {
+  display: grid;
+  grid-template-columns: 1fr 2.2fr;
+  gap: 0 0.4in;
+  margin-top: 0.14in;
+}
+
+/* ══════════════════════════════════════════
+   SECTION HEADERS
+══════════════════════════════════════════ */
+h2 {
+  font-family: var(--sans);
+  font-size: 6.5pt;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 0.1in;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--rule);
+}
+
+section { margin-bottom: 0.2in; }
+
+/* ══════════════════════════════════════════
+   LEFT COLUMN
+══════════════════════════════════════════ */
+.left h2 { margin-top: 0.16in; }
+.left h2:first-child { margin-top: 0; }
+
+.left p, .left li {
+  font-size: 8.2pt;
+  color: var(--mid);
+  line-height: 1.55;
+}
+
+.left ul {
+  list-style: none;
+  padding: 0;
+}
+
+.left ul li {
+  padding: 2px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.left ul li::before {
+  content: '·';
+  color: var(--gold);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.skill-group { margin-bottom: 0.09in; }
+
+.skill-label {
+  font-size: 7pt;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 3px;
+}
+
+.edu-item { margin-bottom: 0.08in; }
+
+.edu-school {
+  font-size: 8.5pt;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 1px;
+}
+
+.edu-detail {
+  font-size: 7.8pt;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.cert-list {
+  font-size: 7.5pt;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-top: 2px;
+}
+
+.community-item { margin-top: 2px; }
+.community-name {
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.community-desc {
+  font-size: 8.2pt;
+  color: var(--mid);
+  line-height: 1.55;
+}
+
+/* ══════════════════════════════════════════
+   RIGHT COLUMN
+══════════════════════════════════════════ */
+.right section { margin-bottom: 0.11in; }
+
+.profile-text {
+  font-size: 8.8pt;
+  color: var(--mid);
+  line-height: 1.65;
+  margin-bottom: 0.04in;
+}
+
+/* Jobs */
+.job { margin-bottom: 0.09in; }
+
+.job-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 2px;
+}
+
+.job-title {
+  font-family: var(--serif);
+  font-size: 11pt;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.job-dates {
+  font-size: 7.8pt;
+  color: var(--muted);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.job-org {
+  font-size: 8pt;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.context-note {
+  font-size: 7.8pt;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 4px;
+  line-height: 1.45;
+}
+
+.right ul {
+  list-style: none;
+  padding: 0;
+}
+
+.right ul li {
+  font-size: 8.2pt;
+  color: var(--mid);
+  line-height: 1.55;
+  padding: 1px 0 1px 13px;
+  position: relative;
+}
+
+.right ul li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 9pt;
+  line-height: 1.4;
+}
+
+/* Projects */
+.project { margin-bottom: 0.14in; }
+
+.project-title {
+  font-weight: 600;
+  font-size: 8.8pt;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.project-stack {
+  font-size: 7.2pt;
+  color: var(--gold);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin-bottom: 3px;
+}
+
+.project-status {
+  font-size: 7.2pt;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 3px;
+}
+
+.section-sub {
+  font-weight: 300;
+  color: var(--muted);
+  font-size: 7pt;
+  letter-spacing: 0.05em;
+}
+
+.project-link {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 400;
+  white-space: nowrap;
+  display: block;
+  margin-top: 2px;
+}
+.project-link:hover { text-decoration: underline; }
+
+/* ══════════════════════════════════════════
+   MOBILE (phone portrait) — screen only, never affects print
+══════════════════════════════════════════ */
+@media screen and (max-width: 640px) {
+  html { background: var(--page); }
+
+  body {
+    max-width: 100%;
+    margin: 0;
+    padding: 22px 18px 28px;
+    box-shadow: none;
+  }
+
+  /* Header stacks: name/tagline, then contact, all left-aligned */
+  header {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 0.6rem;
+  }
+  .name { font-size: 26pt; }
+  .contact { text-align: left; }
+
+  /* Body collapses to one column; lead with the main content, sidebar after */
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 0.24in;
+  }
+  .right { order: -1; }
+  .left {
+    order: 0;
+    margin-top: 0.3in;
+    padding-top: 0.3in;
+    border-top: 1px solid var(--rule);
+  }
+}
+
+/* ══════════════════════════════════════════
+   PRINT
+══════════════════════════════════════════ */
+
+/* @page sets physical margins so body padding is not needed in print */
+@page {
+  size: letter portrait;
+  margin: 0.45in 0.55in;
+}
+
+@media print {
+  /* Preserve colors — Chrome strips them without this */
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+  html { background: white; margin: 0; }
+  body {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    box-shadow: none;
+    font-size: 9pt;
+    background: white;
+  }
+
+  /* Links: no underline, no blue — inherits surrounding text color */
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  /* Restore gold on project URLs so they stay readable in print */
+  .project-link { color: var(--gold) !important; }
+
+  /* Contact link text already reads as the address, and Chrome keeps the
+     hrefs clickable in the PDF, so we do NOT append the raw URL (avoids doubling). */
+
+  /* Page break control — protect individual items; let long sections
+     (Experience, Product) flow across a page boundary, breaking between items.
+     Never break inside a job/project/skill-group, and never strand a heading. */
+  .job   { break-inside: avoid; page-break-inside: avoid; }
+  .project { break-inside: avoid; page-break-inside: avoid; }
+  .skill-group   { break-inside: avoid; page-break-inside: avoid; }
+  .edu-item      { break-inside: avoid; page-break-inside: avoid; }
+  .community-item { break-inside: avoid; page-break-inside: avoid; }
+  h2 { break-after: avoid; page-break-after: avoid; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════ -->
+<header>
+  <div>
+    <div class="name">Todd Herrbach</div>
+    <div class="tagline">Product Engineer &nbsp;·&nbsp; AI<span style="margin:0 -0.06em;">-</span>Native Builder &nbsp;·&nbsp; Systems Thinker</div>
+  </div>
+  <div class="contact">
+    (407) 620-7893<br>
+    <a href="mailto:todd.herrbach@gmail.com">todd.herrbach@gmail.com</a><br>
+    Sanford, FL<br>
+    <a href="https://www.linkedin.com/in/toddherrbach" target="_blank">linkedin.com/in/toddherrbach</a><br>
+    <a href="https://toddherrbach.com" class="portfolio-url" target="_blank">toddherrbach.com</a>
+  </div>
+</header>
+
+<!-- ══ BODY ════════════════════════════════════════ -->
+<div class="body">
+
+  <!-- LEFT COLUMN -->
+  <div class="left">
+
+    <section>
+      <h2>Core Capabilities</h2>
+
+      <div class="skill-group">
+        <div class="skill-label">Product &amp; Systems</div>
+        <ul>
+          <li>End-to-end product ownership</li>
+          <li>User workflow design</li>
+          <li>Data modeling &amp; schema design</li>
+          <li>Platform integration architecture</li>
+          <li>Rapid prototyping &amp; iteration</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-label">AI-Native Building</div>
+        <ul>
+          <li>Claude, ChatGPT (2+ years daily)</li>
+          <li>Claude Code (agentic builds)</li>
+          <li>Prompt engineering &amp; briefs</li>
+          <li>AI-native full-stack development</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-label">Built Using <span style="font-weight:400;font-size:6pt;color:var(--muted);text-transform:none;letter-spacing:0;">(AI-native builds)</span></div>
+        <ul>
+          <li>PHP, HTML, CSS, JavaScript</li>
+          <li>Airtable API &amp; schema design</li>
+          <li>Cloudflare R2 / Images</li>
+          <li>AWS SigV4 request signing</li>
+          <li>Make.com automation pipelines</li>
+          <li>React (prototypes &amp; tools)</li>
+          <li>MailerSend / MailerLite</li>
+          <li>Git / GitHub / Cyberduck</li>
+          <li>Shopify &amp; CustomCat</li>
+          <li>FareHarbor</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-label">Professional Audio</div>
+        <ul>
+          <li>Yamaha digital mixers, Shure Axient wireless mics and IEMs, Meyer Sound loudspeakers</li>
+          <li>Pro Tools, Waves plug-ins, iZotope audio repair / noise reduction tools</li>
+          <li>RF / wireless systems design</li>
+          <li>Studio mixing &amp; post-production</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div class="edu-item">
+        <div class="edu-school">Full Sail University</div>
+        <div class="edu-detail">Associate Degree, Recording Arts<br>Winter Park, FL · 1995</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-school">Professional Certifications</div>
+        <div class="cert-list">
+          Meyer Sound SIM II &amp; III<br>
+          BSS Audio, BLU Level I &amp; II<br>
+          Yamaha M7CL Level I &amp; II<br>
+          Shure Wireless Systems Design<br>
+          SynAudCon: Sound System Design<br>
+          SynAudCon: Digital Audio Systems
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Community</h2>
+      <div class="community-item">
+        <div class="community-name">PA of the Day</div>
+        <p class="community-desc">Acquired a Facebook community at 80,000 followers and grew it to 350,000+ across two platforms, building the Instagram presence from scratch. Operated an associated Shopify <span style="white-space:nowrap;">print-on-demand</span> apparel store for 10 years, generating the direct customer insight that drives the Custom Crew Gear platform.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="right">
+
+    <!-- Profile -->
+    <section>
+      <p class="profile-text">I spent 15 years leading audio operations at a 20,000-seat NBA arena, managing systems, vendors, and staff under game-night conditions where nothing could fail. That same end-to-end ownership mindset now drives the digital product work: find the real problem, choose the right tools, test against real conditions, and build something that actually works for the person using it. The development method is AI-native. The goal is the same as it always was.</p>
+    </section>
+
+    <!-- Experience -->
+    <section>
+      <h2>Experience</h2>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title">Lead Audio Engineer (A1)</div>
+          <div class="job-dates">2010–2025</div>
+        </div>
+        <div class="job-org">Orlando Magic / Kia Center &nbsp;·&nbsp; Orlando, FL</div>
+        <p class="context-note">Audio systems covering an NBA arena, ECHL hockey, arena football, and a year-round calendar of special events including WWE, HBO Boxing, UFC on Fox, NBA All-Star Weekend, and NCAA Tournaments.</p>
+        <ul>
+          <li>Operated and maintained a concert-grade in-bowl sound system and the audio across the arena's hospitality and auxiliary spaces, having built the room's original console scenes, EQ, and audio workflow from scratch ahead of the venue's inaugural season.</li>
+          <li>Mixed, sweetened, or built audio from scratch for the video that played during Magic games, so content cut by many video editors on deadline reached the crowd at consistent levels and stayed intelligible.</li>
+          <li>Hired, trained, and managed a rotating staff of audio engineers, meeting each one wherever their background put them and developing them into the discipline of live sports production, where consistency and serving the event outrank personal style.</li>
+          <li>Coordinated audio requirements across six internal departments (Live Entertainment, Production, Special Events, Broadcast, Video, Radio), serving as the connector that translated needs into workable solutions for teams with competing priorities.</li>
+          <li>Managed vendor relationships and led equipment procurement and lifecycle planning to keep the audio system reliable and event-ready year-round, minimizing the risk of a failure during a live show.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title">Senior Audio Engineer</div>
+          <div class="job-dates">2003–2010</div>
+        </div>
+        <div class="job-org">Northland Church &nbsp;·&nbsp; Longwood, FL</div>
+        <ul>
+          <li>Mixed front-of-house for a 3,330-seat facility running a Meyer Sound line array system; built and delivered a live broadcast mix for simultaneous web streaming and multi-site venue distribution nationwide.</li>
+          <li>Produced audio for physical media, web distribution, voice-over, and original recordings in a high-output production environment using Avid Pro Tools HD.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title">Technical Director</div>
+          <div class="job-dates">2000–2003</div>
+        </div>
+        <div class="job-org">Orangewood Presbyterian Church &nbsp;·&nbsp; Maitland, FL</div>
+        <ul>
+          <li>Oversaw a $150K audio system installation from planning through completion.</li>
+          <li>Established technical standards and operational procedures; built a volunteer technical team from the ground up.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title">Level 2 Audio Technician</div>
+          <div class="job-dates">1997–2000</div>
+        </div>
+        <div class="job-org">Walt Disney World &nbsp;·&nbsp; Orlando, FL</div>
+        <ul>
+          <li>Mixed live shows throughout Magic Kingdom and resort properties; supported special events inside the parks.</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- Projects -->
+    <section>
+      <h2>Product &amp; Digital Work &nbsp;<span class="section-sub">INDEPENDENT &nbsp;·&nbsp; 2024–PRESENT</span></h2>
+
+      <div class="project">
+        <div class="project-title">Guest Photo Delivery System &nbsp;·&nbsp; Hidden Palms Ranch <a href="https://toddherrbach.com/hidden-palms-ranch.html" class="project-link">toddherrbach.com/hidden-palms-ranch.html</a></div>
+        <div class="project-stack">PHP · Cloudflare R2 · Airtable API · MailerSend · GitHub · DreamHost</div>
+        <div class="project-status">In late-stage testing, approaching launch</div>
+        <ul>
+          <li>Designed and built a full-stack web application enabling guides to submit visit data and upload photos via mobile; guests receive a branded photo page via QR code with no app required, personalized by visit type to drive reviews, guide tips, and return bookings.</li>
+          <li>Iterated through two complete architectural cycles. The first was a full automation pipeline built on Fillout, Make.com, Dropbox file storage, and Twilio SMS with A2P 10DLC carrier compliance; field testing exposed a critical failure (iPhone Safari memory crash on 50+ file selections), so the entire upload layer was rebuilt on direct-to-R2 presigned PUT URLs, eliminating the constraint at the source.</li>
+          <li>Implemented AWS SigV4 request signing from scratch in PHP without an SDK; structured a multi-table Airtable schema; serve media from a private R2 bucket through an HMAC-signed PHP proxy, with a Cloudflare Images variant pipeline (resizing and HEIC-to-JPEG) as the next build phase.</li>
+          <li>Built using an AI-native workflow throughout: Claude and Claude Code served as the primary development partner for architecture, implementation, debugging, and iteration across 15+ build sessions.</li>
+        </ul>
+      </div>
+
+      <div class="project">
+        <div class="project-title">Custom Crew Gear &nbsp;·&nbsp; Bulk Apparel Platform</div>
+        <div class="project-stack">Shopify → Order Desk → CustomCat · Klaviyo + Meta Ads</div>
+        <div class="project-status">Build paused pending print-file tooling</div>
+        <ul>
+          <li>Took the concept from customer insight through brand identity, pricing structure, email marketing strategy, fulfillment architecture, and customer lifecycle design before a line of code was written. The ordering platform lets customers configure a design once and populate a full staff order via CSV; documented across 12+ working specification files.</li>
+          <li>Build paused at the print-file automation stage, where image generation tooling did not yet exist at the necessary quality. Substantial planning and documentation in progress; the platform will launch when AI-assisted file generation reaches the required standard.</li>
+        </ul>
+      </div>
+
+    </section>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+# Private job-application site.
+# Goal: stay out of search results and out of AI/LLM datasets, while still
+# allowing rich link previews when the URL is texted or shared.
+#
+# - Out of SEARCH: handled by the <meta name="robots" content="noindex..."> tag
+#   on every page. We allow normal crawling so Google/Bing can READ that tag and
+#   reliably keep the site out of results.
+# - Out of LLMs: AI crawlers ignore the noindex tag, so they are blocked by name below.
+# - Link PREVIEWS: preview bots (iMessage/Applebot, facebookexternalhit, Twitterbot,
+#   LinkedInBot, Slackbot, Discordbot) are allowed, so texted links still unfurl.
+
+User-agent: *
+Allow: /
+
+# ---- Block AI / LLM crawlers (training, indexing, and answer bots) ----
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: OAI-SearchBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /

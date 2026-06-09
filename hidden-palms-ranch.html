@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guest Photo Delivery System: Hidden Palms Ranch | Todd Herrbach</title>
+<meta name="description" content="A case study in end-to-end product thinking: building a guest experience system for a small ranch business from idea to launch.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Todd Herrbach">
+<meta property="og:title" content="Guest Photo Delivery System · Todd Herrbach">
+<meta property="og:description" content="A case study in end-to-end product thinking: building a guest experience system for a small ranch business from idea to launch.">
+<meta property="og:image" content="https://toddherrbach.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://toddherrbach.com/hidden-palms-ranch.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Guest Photo Delivery System · Todd Herrbach">
+<meta name="twitter:description" content="A case study in end-to-end product thinking: building a guest experience system for a small ranch business from idea to launch.">
+<meta name="twitter:image" content="https://toddherrbach.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════════ */
+:root {
+  --dark:          #0B1620;
+  --dark-2:        #111E2D;
+  --mid:           #F3F6FA;
+  --light:         #FFFFFF;
+  --accent:        #1355C7;
+  --accent-hover:  #0D44A8;
+  --accent-green:  #1A7A50;
+  --accent-warm:   #C47D20;
+  --text:          #0B1620;
+  --body:          #37465A;
+  --muted:         #637080;
+  --border:        #DDE4EE;
+  --border-dark:   rgba(255,255,255,0.1);
+  --shadow-sm:     0 2px 8px rgba(11,22,32,0.08);
+  --shadow-md:     0 8px 30px rgba(11,22,32,0.12);
+  --shadow-lg:     0 20px 60px rgba(11,22,32,0.18);
+  --radius:        12px;
+  --radius-lg:     20px;
+}
+
+/* ═══════════════════════════════════════════════
+   RESET + BASE
+═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--light);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ═══════════════════════════════════════════════
+   LAYOUT HELPERS
+═══════════════════════════════════════════════ */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+@media (max-width: 768px) { .container { padding: 0 20px; } }
+
+.section { padding: 100px 0; }
+.section-sm { padding: 72px 0; }
+@media (max-width: 768px) { .section { padding: 64px 0; } }
+
+/* ═══════════════════════════════════════════════
+   TYPOGRAPHY
+═══════════════════════════════════════════════ */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  display: block;
+}
+.eyebrow-light { color: rgba(255,255,255,0.8); }
+.eyebrow-warm  { color: var(--accent-warm); }
+
+h1, h2, h3 { line-height: 1.1; letter-spacing: -0.02em; }
+
+.headline-xl {
+  font-size: clamp(44px, 6vw, 80px);
+  font-weight: 200;
+  color: var(--light);
+  line-height: 1.05;
+}
+.headline-xl strong {
+  font-weight: 800;
+  display: block;
+}
+
+.headline-lg {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 200;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.headline-lg strong { font-weight: 700; }
+
+.headline-md {
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 200;
+  color: var(--light);
+  margin-bottom: 20px;
+}
+.headline-md strong { font-weight: 700; }
+
+h3.sub-headline {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.body-lead {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--body);
+  line-height: 1.7;
+  max-width: 660px;
+}
+.body-lead-light { color: rgba(255,255,255,0.82); }
+
+p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
+
+/* ═══════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(11,22,32,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-dark);
+  padding: 0 40px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-name {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+}
+.nav-name span { color: var(--light); }
+.nav-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.72);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: white; }
+@media (max-width: 768px) {
+  .nav { padding: 0 20px; }
+  .nav-link { display: none; }
+}
+
+/* ═══════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════ */
+.hero {
+  background: #0B1620;
+  padding: 160px 0 120px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-texture {
+  position: absolute;
+  inset: 0;
+  background: url('images/hero-texture.jpg') no-repeat center center;
+  background-size: cover;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(11,22,32,0) 45%, rgba(11,22,32,0.7) 80%, #0B1620 100%);
+}
+@media (max-width: 768px) {
+  .hero { padding: 120px 0 80px; }
+  .hero-texture { opacity: 0.7; }
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(26,122,80,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 1; }
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.72);
+  margin-bottom: 40px;
+}
+.hero-tag::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 300;
+  color: rgba(255,255,255,0.72);
+  margin-top: 32px;
+  max-width: 580px;
+  line-height: 1.6;
+}
+.hero-meta {
+  margin-top: 56px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.hero-stat { }
+.hero-stat-num {
+  font-size: 28px;
+  font-weight: 800;
+  color: white;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hero-stat-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.scroll-hint {
+  margin-top: 72px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255,255,255,0.82);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.scroll-arrow {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bounce 2s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION: THE BEFORE
+═══════════════════════════════════════════════ */
+.before-section { background: var(--light); }
+.before-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 28px;
+}
+.dead-end-visual {
+  background: var(--mid);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  border: 1px solid var(--border);
+}
+.dead-end-title {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+  text-align: center;
+}
+.de-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.de-step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.de-step:last-child { border-bottom: none; }
+.de-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.de-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--body);
+  flex: 1;
+}
+.de-result {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.de-result.ok     { background: #EAF6EF; color: #1A7A50; }
+.de-result.dead   { background: #FEF0E7; color: #B8550F; }
+.de-result.gap    { background: #FEF0E7; color: #B8550F; }
+
+.before-text p + p { margin-top: 20px; }
+
+@media (max-width: 768px) {
+  .before-cols { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION: JOURNEY FLOW
+═══════════════════════════════════════════════ */
+.flow-section { background: var(--dark); }
+.flow-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 56px;
+  position: relative;
+}
+.flow-grid::before {
+  content: '';
+  position: absolute;
+  top: 36px;
+  left: calc(12.5% + 18px);
+  right: calc(12.5% + 18px);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(19,85,199,0.8), rgba(26,122,80,0.8));
+}
+.flow-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 16px;
+  position: relative;
+  z-index: 1;
+}
+.flow-icon {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+.flow-icon.accent { background: rgba(19,85,199,0.2); border-color: rgba(19,85,199,0.4); }
+.flow-num {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.58);
+  margin-bottom: 8px;
+}
+.flow-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.flow-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.6;
+}
+.flow-connector {
+  position: absolute;
+  top: 34px;
+  right: -12px;
+  width: 24px; height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.75);
+  font-size: 14px;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .flow-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .flow-grid::before { display: none; }
+  .flow-connector { display: none; }
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION: GUEST EXPERIENCE
+═══════════════════════════════════════════════ */
+.guest-section { background: var(--light); }
+.guest-intro {
+  max-width: 680px;
+  margin-bottom: 64px;
+}
+.phone-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.phone-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.phone-caption {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+  text-align: center;
+}
+.phone-note {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.55;
+  text-align: center;
+  margin-top: 12px;
+  font-style: italic;
+  text-wrap: pretty;
+}
+
+@media (max-width: 1024px) {
+  .phone-gallery { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+}
+@media (max-width: 600px) {
+  .phone-gallery { grid-template-columns: 1fr; }
+  .phone-gallery .iphone { max-width: 360px; }
+  .hero-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 24px; }
+}
+
+/* ─── iPhone Frame ─────────────────────────── */
+.iphone {
+  position: relative;
+  background: #1C1C1E;
+  border-radius: 48px;
+  padding: 14px;
+  box-shadow:
+    inset 0 0 0 1px #3A3A3C,
+    0 0 0 1px #2C2C2E,
+    var(--shadow-lg);
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+}
+/* Dynamic Island */
+.iphone::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88px; height: 25px;
+  background: #1C1C1E;
+  border-radius: 13px;
+  z-index: 10;
+}
+/* Volume buttons */
+.iphone::after {
+  content: '';
+  position: absolute;
+  top: 90px; left: -4px;
+  width: 3px; height: 30px;
+  background: #2C2C2E;
+  border-radius: 2px;
+  box-shadow: 0 44px 0 #2C2C2E;
+}
+/* Side button via pseudo on screen wrapper */
+.iphone-screen {
+  border-radius: 36px;
+  overflow: hidden;
+  background: #1C1C1E;
+  position: relative;
+  aspect-ratio: 9 / 19.5;
+}
+.iphone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+/* Placeholder state */
+.iphone-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #2A2A2C;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  gap: 10px;
+}
+.iphone-placeholder-icon {
+  font-size: 28px;
+  opacity: 0.4;
+}
+.iphone-placeholder-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.58);
+  line-height: 1.5;
+}
+.iphone-placeholder-file {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.72);
+  font-family: monospace;
+  letter-spacing: 0.05em;
+}
+
+/* ─── Desktop Frame ────────────────────────── */
+.desktop-frame {
+  background: #1C1C1E;
+  border-radius: 12px;
+  padding: 24px 24px 12px;
+  box-shadow:
+    inset 0 0 0 1px #3A3A3C,
+    var(--shadow-lg);
+  position: relative;
+}
+.desktop-frame::before {
+  content: '';
+  position: absolute;
+  top: 10px; left: 50%;
+  transform: translateX(-50%);
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #3A3A3C;
+}
+.desktop-frame::after {
+  content: '';
+  display: block;
+  height: 20px;
+  background: #2C2C2E;
+  border-radius: 0 0 6px 6px;
+  margin-top: 10px;
+}
+.desktop-screen {
+  border-radius: 4px;
+  overflow: hidden;
+  background: #2A2A2C;
+}
+.desktop-screen img {
+  width: 100%;
+  display: block;
+}
+.desktop-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #2A2A2C;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+}
+.desktop-placeholder-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.5;
+}
+.desktop-placeholder-file {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.15);
+  font-family: monospace;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION: PRODUCT LOGIC
+═══════════════════════════════════════════════ */
+.logic-section { background: var(--dark); }
+.logic-intro { max-width: 680px; margin-bottom: 56px; }
+.logic-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+.logic-table th {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  padding: 12px 20px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.logic-table td {
+  padding: 20px;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.55;
+}
+.logic-table tr:last-child td { border-bottom: none; }
+.logic-table td:first-child {
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
+  width: 200px;
+}
+.logic-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 5px 11px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.82);
+  margin: 3px 4px 3px 0;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.logic-tag.highlight {
+  background: rgba(19,85,199,0.2);
+  border-color: rgba(19,85,199,0.4);
+  color: #7EB8F7;
+}
+.logic-tag.green {
+  background: rgba(26,122,80,0.2);
+  border-color: rgba(26,122,80,0.4);
+  color: #7ECCA5;
+}
+.logic-tag.warm {
+  background: rgba(196,125,32,0.2);
+  border-color: rgba(196,125,32,0.4);
+  color: #EFC07A;
+}
+.logic-note {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.66);
+  margin-top: 28px;
+  line-height: 1.65;
+  max-width: 700px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding-top: 28px;
+}
+
+@media (max-width: 768px) {
+  .logic-table, .logic-table tbody, .logic-table tr, .logic-table td {
+    display: block;
+  }
+  .logic-table thead { display: none; }
+  .logic-table tr {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .logic-table td { padding: 4px 0; width: 100%; }
+  .logic-table td:first-child {
+    white-space: normal;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION: GUIDE EXPERIENCE
+═══════════════════════════════════════════════ */
+.guide-section { background: var(--mid); }
+.guide-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 56px;
+}
+.guide-phones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+.guide-phone-top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.guide-phone-top .iphone { max-width: 220px; }
+.guide-phone-row {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  width: 100%;
+}
+.guide-phone-row .iphone { max-width: 188px; }
+.guide-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.guide-point { }
+.guide-point-num {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.guide-point h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.guide-point p {
+  font-size: 14px;
+  color: var(--body);
+  line-height: 1.65;
+}
+
+@media (max-width: 768px) {
+  .guide-cols { grid-template-columns: 1fr; gap: 48px; }
+  .guide-phone-row { flex-direction: column; align-items: center; }
+  .guide-phone-top .iphone, .guide-phone-row .iphone { max-width: 360px; }
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION: PHASE 2
+═══════════════════════════════════════════════ */
+.phase2-section { background: var(--light); }
+.phase2-cols {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 56px;
+}
+.phase2-text p + p { margin-top: 18px; }
+.phase2-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(19,85,199,0.08);
+  border: 1px solid rgba(19,85,199,0.2);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 28px;
+}
+.phase2-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .phase2-cols { grid-template-columns: 1fr; gap: 48px; }
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION: BUILDER'S NOTE
+═══════════════════════════════════════════════ */
+.builder-section { background: var(--dark); }
+.builder-cols {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 80px;
+  align-items: start;
+}
+.builder-quote {
+  font-family: 'Lora', serif;
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.75;
+  border-left: 2px solid rgba(19,85,199,0.6);
+  padding-left: 28px;
+  margin-top: 32px;
+}
+.builder-quote em {
+  font-style: normal;
+  font-weight: 600;
+  color: white;
+}
+.builder-detail { }
+.builder-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 16px;
+  margin-top: 36px;
+}
+.builder-section-title:first-child { margin-top: 0; }
+.stack-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.stack-chip {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+}
+.rebuild-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-top: 10px;
+}
+.rebuild-card p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+}
+.rebuild-card strong {
+  color: rgba(255,255,255,0.85);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .builder-cols { grid-template-columns: 1fr; gap: 48px; }
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION: STATUS
+═══════════════════════════════════════════════ */
+.status-section {
+  background: var(--dark-2);
+  padding: 48px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.status-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.status-left { }
+.status-dot-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #2ECC71;
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+.status-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.72);
+}
+.status-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.5;
+}
+.status-right {
+  display: flex;
+  gap: 40px;
+}
+.status-num { text-align: center; }
+.status-num-val {
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.status-num-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.58);
+}
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+.footer {
+  background: var(--dark);
+  padding: 56px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-name {
+  font-size: 18px;
+  font-weight: 200;
+  color: rgba(255,255,255,0.78);
+}
+.footer-name strong {
+  font-weight: 700;
+  color: white;
+}
+.footer-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.footer-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.66);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.footer-link:hover { color: white; }
+.footer-link.primary {
+  background: var(--accent);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+.footer-link.primary:hover { background: var(--accent-hover); }
+.footer-fine {
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 12px;
+  color: rgba(255,255,255,0.72);
+}
+
+/* ═══════════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════════ */
+.divider {
+  width: 40px; height: 2px;
+  background: var(--accent);
+  margin: 24px 0;
+}
+.divider-light {
+  background: rgba(255,255,255,0.2);
+}
+.text-center { text-align: center; }
+.mt-8 { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mt-32 { margin-top: 32px; }
+.mt-48 { margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════ -->
+<nav class="nav">
+  <span class="nav-name"><span>Todd Herrbach</span>: Case Study</span>
+  <a href="https://www.linkedin.com/in/toddherrbach" target="_blank" rel="noopener" class="nav-link">LinkedIn <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-left:1px"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+</nav>
+
+
+<!-- ═══ HERO ══════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-texture" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-tag">Hidden Palms Ranch · Guest Photo Delivery System</div>
+    <h1 class="headline-xl">
+      The ride ends.
+      <strong>The relationship shouldn't.</strong>
+    </h1>
+    <p class="hero-sub">A guest experience system that turns a photo handoff into a complete post-visit touchpoint: reviews, tips, and return bookings built in.</p>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <div class="hero-stat-num">5</div>
+        <div class="hero-stat-label">Visit types supported</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Downstream actions per visit</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">2</div>
+        <div class="hero-stat-label">Interfaces built</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">0</div>
+        <div class="hero-stat-label">Third-party automation tools</div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-arrow">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+          <path d="M5 1v8M1 5l4 4 4-4" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      Scroll to explore
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ THE BEFORE ════════════════════════════ -->
+<section class="section before-section">
+  <div class="container">
+    <span class="eyebrow">The Problem</span>
+    <h2 class="headline-lg">AirDrop delivers the photos.<br><strong>It doesn't deliver anything else.</strong></h2>
+    <div class="before-cols">
+      <div class="before-text">
+        <p class="body-lead">Hidden Palms Ranch guides photograph every visit. After the ride, they'd airdrop photos to iPhone guests or email them to Android users. Both methods work. Both end the same way: photos received, relationship over.</p>
+        <div class="divider"></div>
+        <p class="body">There was no branded follow-up. No path to a review. No way for guests to tip their guide after they'd already separated. No prompt to book again before the memory faded. The ranch was delivering a great product and leaving every downstream outcome to chance.</p>
+        <p class="body mt-16">The opportunity wasn't in the photo delivery. It was in everything that should happen after the last photo lands.</p>
+      </div>
+      <div>
+        <div class="dead-end-visual">
+          <div class="dead-end-title">The Old Flow</div>
+          <div class="de-flow">
+            <div class="de-step">
+              <div class="de-icon" style="color:var(--muted)"><svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="5.5" width="14" height="10" rx="2"/><path d="M5.5 5.5l1-2.5h4l1 2.5"/><circle cx="8.5" cy="10.5" r="2.5"/></svg></div>
+              <div class="de-text">Guide photographs the visit</div>
+              <div class="de-result ok">Works</div>
+            </div>
+            <div class="de-step">
+              <div class="de-icon" style="color:var(--muted)"><svg width="15" height="17" viewBox="0 0 15 17" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="1.5" width="11" height="14" rx="2.5"/><circle cx="7.5" cy="13" r="0.7" fill="currentColor" stroke="none"/></svg></div>
+              <div class="de-text">AirDrop to iPhone / email to Android</div>
+              <div class="de-result ok">Works</div>
+            </div>
+            <div class="de-step">
+              <div class="de-icon" style="color:var(--muted)"><svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="7"/><path d="M5 8.5l2.5 2.5 4.5-5"/></svg></div>
+              <div class="de-text">Guest receives photos</div>
+              <div class="de-result ok">Works</div>
+            </div>
+            <div class="de-step">
+              <div class="de-icon" style="color:var(--muted)"><svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="7"/><path d="M8.5 5v7M6.5 7c0-1 .67-1.5 2-1.5s2 .5 2 1.5-1.3 1.5-2 1.5-2 .5-2 1.5.67 1.5 2 1.5 2-.5 2-1.5" stroke-linejoin="round"/></svg></div>
+              <div class="de-text">Guest tips the guide</div>
+              <div class="de-result dead">No path</div>
+            </div>
+            <div class="de-step">
+              <div class="de-icon" style="color:var(--muted)"><svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 2l1.8 4 4.2.6-3 3 .7 4.2-3.7-2-3.7 2 .7-4.2-3-3 4.2-.6z"/></svg></div>
+              <div class="de-text">Guest leaves a review</div>
+              <div class="de-result dead">No prompt</div>
+            </div>
+            <div class="de-step">
+              <div class="de-icon" style="color:var(--muted)"><svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="3.5" width="14" height="12" rx="2"/><path d="M1.5 7.5h14M6 1.5v4M11 1.5v4"/></svg></div>
+              <div class="de-text">Guest books another visit</div>
+              <div class="de-result gap">No hook</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ JOURNEY FLOW ══════════════════════════ -->
+<section class="section flow-section">
+  <div class="container">
+    <span class="eyebrow eyebrow-light">The System</span>
+    <h2 class="headline-md">Four touchpoints.<strong> One continuous experience.</strong></h2>
+    <p class="body-lead body-lead-light mt-16">A guide-facing upload interface and a guest-facing landing page, connected by a QR code and followed by a personalized email.</p>
+    <div class="flow-grid mt-48">
+
+      <div class="flow-node">
+        <div class="flow-icon accent" style="color:#6AA8FF"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></div>
+        <div class="flow-num">01</div>
+        <div class="flow-title">Guide Uploads</div>
+        <div class="flow-desc">Password-protected web app, saved to the guide's home screen. Guide selects the party, uploads photos and video, confirms marketing permission. QR code appears on success.</div>
+        <div class="flow-connector">›</div>
+      </div>
+
+      <div class="flow-node">
+        <div class="flow-icon" style="color:#4FC2CC;background:rgba(60,180,190,0.12);border-color:rgba(60,180,190,0.32)"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v3M14 21h7"/></svg></div>
+        <div class="flow-num">02</div>
+        <div class="flow-title">Guest Scans</div>
+        <div class="flow-desc">Guide shows the QR code. Guest scans. No app download. No login. The branded landing page loads within seconds of the upload completing.</div>
+        <div class="flow-connector">›</div>
+      </div>
+
+      <div class="flow-node">
+        <div class="flow-icon" style="color:#EC6A6F;background:rgba(229,72,77,0.12);border-color:rgba(229,72,77,0.32)"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.35-7-9.5a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10.5c0 5.15-7 9.5-7 9.5z" fill="rgba(236,106,111,0.22)"/></svg></div>
+        <div class="flow-num">03</div>
+        <div class="flow-title">Guest Engages</div>
+        <div class="flow-desc">Photos, guide tip links, a review prompt, and a visit-type-aware return booking path, all on one page, personalized to their specific visit.</div>
+        <div class="flow-connector">›</div>
+      </div>
+
+      <div class="flow-node">
+        <div class="flow-icon" style="color:#D2A24A;background:rgba(196,125,32,0.14);border-color:rgba(196,125,32,0.32)"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg></div>
+        <div class="flow-num">04</div>
+        <div class="flow-title">Email Follows</div>
+        <div class="flow-desc">Guest emails themselves a link. A personalized MailerSend template arrives with their party name, visit type, a 30-day download link, and a soft return-booking prompt.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ GUEST EXPERIENCE ══════════════════════ -->
+<section class="section guest-section">
+  <div class="container">
+    <h2 class="headline-lg" style="font-weight:800;font-size:clamp(28px,3.5vw,44px);margin-bottom:10px;">The Guest Experience</h2>
+    <div class="guest-intro">
+      <p class="body-lead" style="font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--body);margin-bottom:12px;">What a guest sees after a <strong>Private Trail Ride.</strong></p>
+      <p class="body-lead mt-16">Minutes after returning from the trail, the guide shows a QR code. The guest scans it. Everything below loads on their phone.</p>
+    </div>
+    <div class="phone-gallery">
+
+      <!-- Phone 1: Hero / Photos -->
+      <div class="phone-col">
+        <div class="phone-caption">Photo Gallery</div>
+        <div class="iphone">
+          <div class="iphone-screen">
+            <!-- REPLACE WITH: guest-page-hero.png -->
+            <img src="images/guest-page-hero.png" alt="Hidden Palms Ranch guest photo page: branded hero and photo grid">
+          </div>
+        </div>
+        <div class="phone-note">Branded header, date stamp, and the full photo grid. Tap any photo to open it in a lightbox and save directly to your camera roll.</div>
+      </div>
+
+      <!-- Phone 2: Tip card -->
+      <div class="phone-col">
+        <div class="phone-caption">Guide Tips</div>
+        <div class="iphone">
+          <div class="iphone-screen">
+            <!-- REPLACE WITH: guest-page-tips.png -->
+            <img src="images/guest-page-tips.png" alt="Guest page guide tip card with Venmo and Cash App links">
+          </div>
+        </div>
+        <div class="phone-note">Guide headshots, names, and direct links to their Venmo and Cash App. Tips happen while the moment is still fresh. Shown on mobile only. By the time guests open this on a desktop, that moment has passed.</div>
+      </div>
+
+      <!-- Phone 3: Email card -->
+      <div class="phone-col">
+        <div class="phone-caption">Save Your Photos</div>
+        <div class="iphone">
+          <div class="iphone-screen">
+            <!-- REPLACE WITH: guest-page-email.png -->
+            <img src="images/guest-page-email.png" alt="Guest page email-yourself card with photo grid detail">
+          </div>
+        </div>
+        <div class="phone-note">One tap sends a personalized email with a link back to the page and a 30-day download link for all photos, or just the ones the guest hearted as favorites. Also the guest's first entry into the ranch email list. Favorites marked on the guest page surface in the management dashboard for quick review.</div>
+      </div>
+
+      <!-- Phone 4: Rebook -->
+      <div class="phone-col">
+        <div class="phone-caption">Come Back and See Us</div>
+        <div class="iphone">
+          <div class="iphone-screen">
+            <!-- REPLACE WITH: guest-page-rebook.png -->
+            <img src="images/guest-page-rebook.png" alt="Guest page rebook section for a trail ride visit">
+          </div>
+        </div>
+        <div class="phone-note">Trail Ride guests see the NEIGHborhood Riding Club (monthly membership) and a Team Outing waitlist form. The booking button links directly to FareHarbor for their specific visit type.</div>
+      </div>
+
+    </div>
+
+    <!-- Desktop view -->
+    <div class="mt-48">
+      <div class="phone-caption text-center" style="margin-bottom:20px">On Desktop: same page, different experience</div>
+      <div class="desktop-frame">
+        <div class="desktop-screen">
+          <!-- REPLACE WITH: guest-page-desktop.png -->
+          <img src="images/guest-page-desktop.png" alt="Guest photo page desktop layout: four-column photo grid">
+        </div>
+      </div>
+      <p class="body mt-16" style="max-width:660px;color:var(--muted);font-size:14px;font-style:italic">The email and tip cards are hidden on desktop using CSS <code>:has()</code>, targeting the inner component rather than adding a class. By the time a guest opens this on a laptop, both moments have passed. The desktop version serves the photos and the return path.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ PRODUCT LOGIC ═════════════════════════ -->
+<section class="section logic-section">
+  <div class="container">
+    <span class="eyebrow eyebrow-light">The Product Thinking</span>
+    <div class="logic-intro">
+      <h2 class="headline-md">Each visit type earns <strong>a different path.</strong></h2>
+      <p class="body-lead body-lead-light mt-16">A guest who just rode a private trail for the first time needs a different next step than a returning member or a corporate group. The rebook section adapts to who's reading it.</p>
+    </div>
+
+    <table class="logic-table">
+      <thead>
+        <tr>
+          <th>Visit Type</th>
+          <th>Immediate Rebook CTA<br><span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:9px;color:rgba(255,255,255,0.72);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:2px"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>links go direct to FareHarbor</span></th>
+          <th>Downstream Offers</th>
+          <th>Reasoning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Private Trail Ride</td>
+          <td><span class="logic-tag highlight"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 9L9 1M9 1H4M9 1v5"/></svg>Rebook same visit</span></td>
+          <td>
+            <span class="logic-tag green">NEIGHborhood Club</span>
+            <span class="logic-tag warm">Team Outing waitlist</span>
+          </td>
+          <td>They came alone or as a small group. They want to come back the same way, but the club and team offering expand the relationship.</td>
+        </tr>
+        <tr>
+          <td>Group Trail Ride</td>
+          <td><span class="logic-tag highlight"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 9L9 1M9 1H4M9 1v5"/></svg>Rebook same visit</span></td>
+          <td>
+            <span class="logic-tag green">NEIGHborhood Club</span>
+            <span class="logic-tag warm">Team Outing waitlist</span>
+          </td>
+          <td>Same logic as private. Direct rebook link personalized to their exact visit type, not a generic booking page.</td>
+        </tr>
+        <tr>
+          <td>Horse Experience</td>
+          <td><em style="color:rgba(255,255,255,0.8)">No direct rebook link</em></td>
+          <td>
+            <span class="logic-tag highlight">Private Trail Ride</span>
+            <span class="logic-tag highlight">Group Trail Ride</span>
+          </td>
+          <td>This is the ranch's loss-leader for younger guests. The natural next step is the trail: parents see their child's excitement and want to ride themselves.</td>
+        </tr>
+        <tr>
+          <td>NEIGHborhood Club</td>
+          <td><em style="color:rgba(255,255,255,0.8)">See you next month</em></td>
+          <td>
+            <span class="logic-tag warm">Team Outing waitlist</span>
+          </td>
+          <td>Returning members already love the ranch. The Team Outing prompt is less a pitch and more a quiet aside to someone who is already on the inside: something they or someone they know might want.</td>
+        </tr>
+        <tr>
+          <td>Team Outing</td>
+          <td><em style="color:rgba(255,255,255,0.8)">No direct rebook link</em></td>
+          <td>
+            <span class="logic-tag highlight">Group Trail Ride</span>
+            <span class="logic-tag highlight">Private Trail Ride</span>
+          </td>
+          <td>Corporate groups experienced the ranch as a team. Their individual next step is a personal trail visit. The tip card is hidden for this visit type (not the right context).</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="logic-note">The visit type is captured in the guide form, stored in Airtable, pulled at render time, and drives five separate rendering branches. No manual segmentation. The page just knows who it's talking to.</p>
+  </div>
+</section>
+
+
+<!-- ═══ GUIDE EXPERIENCE ══════════════════════ -->
+<section class="section guide-section">
+  <div class="container">
+    <h2 class="headline-lg" style="font-weight:800;font-size:clamp(28px,3.5vw,44px);margin-bottom:10px;">The Guide Experience</h2>
+    <p style="font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--body);margin-bottom:32px;line-height:1.4;">Built for a phone, <strong>on the trail.</strong></p>
+    <div class="guide-cols">
+      <div class="guide-phones">
+        <!-- Top: ready state -->
+        <div class="guide-phone-top">
+          <div class="iphone">
+            <div class="iphone-screen">
+              <!-- REPLACE WITH: guide-app-form.png -->
+              <img src="images/guide-app-form.png" alt="Guide upload app: form and ready state">
+            </div>
+          </div>
+        </div>
+        <!-- Bottom row: mid-upload + complete -->
+        <div class="guide-phone-row">
+          <div class="iphone">
+            <div class="iphone-screen">
+              <!-- REPLACE WITH: guide-app-upload.png -->
+              <img src="images/guide-app-upload.png" alt="Guide upload app: mid-upload progress with the horse on the progress bar">
+            </div>
+          </div>
+          <div class="iphone">
+            <div class="iphone-screen">
+              <!-- REPLACE WITH: guide-app-qr.png -->
+              <img src="images/guide-app-qr.png" alt="Guide upload app: QR complete state">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-detail">
+        <div class="guide-point">
+          <div class="guide-point-num">One-tap access</div>
+          <h4>Password protected, remembered by iCloud Keychain</h4>
+          <p>A 30-day HMAC-signed cookie means guides log in once and the page opens every time. No friction at the end of a visit when guests are waiting.</p>
+        </div>
+        <div class="guide-point">
+          <div class="guide-point-num">Upload flow</div>
+          <h4>State machine, not scattered event handlers</h4>
+          <p>A single <code>appState</code> variable drives everything: list, ready, uploading, complete, error. A horse emoji rides the progress bar. The QR code is hidden until every file succeeds. Partial failures go to a retry state: no starting over, just the failed files retry.</p>
+        </div>
+        <div class="guide-point">
+          <div class="guide-point-num">Marketing permission</div>
+          <h4>Required field. No default. No submit without it.</h4>
+          <p>The guide must actively select yes or no. A guest's photos only enter the marketing library if permission was explicitly granted. Both client-side validation and server-side enforcement.</p>
+        </div>
+        <div class="guide-point">
+          <div class="guide-point-num">Today's dashboard</div>
+          <h4>All submissions visible at the top of the page</h4>
+          <p>After each upload, a dashboard refreshes above the form. Party name, visit type, submission time, QR code and link, so guides can hand the QR to late arrivals without resubmitting.</p>
+        </div>
+        <div class="guide-point">
+          <div class="guide-point-num">Field-tested resilience</div>
+          <h4>It recovers from what actually happens on a ranch</h4>
+          <p>Tested against hard Safari exits mid-upload, the guide switching to another app (a text message, a call), and full network loss from the phone being put in airplane mode. The upload resumes and the state is preserved. A stall indicator fires after 15 seconds of no progress so the guide knows the upload is still running on a slow connection.</p>
+        </div>
+        <div class="guide-point">
+          <div class="guide-point-num">Guide management</div>
+          <h4>Headshots, Venmo, and Cash App managed in Airtable</h4>
+          <p>Every guide's photo, name, Venmo handle, and Cash App handle lives in a single Airtable record. Adding a new guide or updating a link is a one-row edit with no code change required. The guest page pulls the current data on every load.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ PHASE 2 ════════════════════════════════ -->
+<section class="section phase2-section">
+  <div class="container">
+    <div class="phase2-cols">
+      <div class="phase2-text">
+        <span class="eyebrow">Phase 2</span>
+        <div class="phase2-badge">In development</div>
+        <h2 class="headline-lg">The photos don't <strong>stop being useful</strong> after the guest downloads them.</h2>
+        <div class="divider mt-24"></div>
+        <p class="body mt-24">Every guest who approves marketing use has photos sitting in Cloudflare R2, tagged to their visit type and guide. Right now that library is unstructured. Phase 2 puts it in front of the right person.</p>
+        <p class="body mt-16">The media dashboard was originally built for the Make.com / Dropbox pipeline. It has to be rebuilt for the current system. The schema, the R2 key structure, and the permission field are already in place. The dashboard itself just needs to be rewired.</p>
+        <p class="body mt-16">In version 1.5, horses and other animals in the photos will be auto-tagged using a vision AI API so the social media team always gets the names right.</p>
+      </div>
+      <div>
+        <div class="desktop-frame">
+          <div class="desktop-screen">
+            <!-- REPLACE WITH: media-dashboard.png -->
+            <img src="images/media-dashboard.png" alt="Phase 2 media dashboard management view">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ STATUS BAR ════════════════════════════ -->
+<div class="status-section">
+  <div class="container">
+    <div class="status-inner">
+      <div class="status-left">
+        <div class="status-dot-row">
+          <div class="status-dot"></div>
+          <div class="status-label">Late-stage testing, approaching launch</div>
+        </div>
+        <div class="status-desc">End-to-end pipeline verified on real iPhone. 29-file upload tested including .mov and .png. Guest page and email delivery confirmed.</div>
+      </div>
+      <div class="status-right">
+        <div class="status-num">
+          <div class="status-num-val">15+</div>
+          <div class="status-num-label">Build sessions</div>
+        </div>
+        <div class="status-num">
+          <div class="status-num-val">1</div>
+          <div class="status-num-label">Full rebuild</div>
+        </div>
+        <div class="status-num">
+          <div class="status-num-val">0</div>
+          <div class="status-num-label">Automation chains</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ BUILDER'S NOTE ════════════════════════ -->
+<section class="section builder-section">
+  <div class="container">
+    <span class="eyebrow eyebrow-light">The Builder</span>
+    <div class="builder-cols">
+      <div>
+        <h2 class="headline-md">A non-engineer who builds<strong> like the goal was always the outcome.</strong></h2>
+        <blockquote class="builder-quote">
+          "The rehearsals, the arguments, the a/b tests, the last-minute fixes: that's the team's job. By the time the lights go down, none of it should be visible. <em>The work disappears into the moment. That is how you know it was done right.</em>"
+        </blockquote>
+        <p class="body-lead body-lead-light mt-32" style="font-size:15px">Nearly 15 years running audio operations at the Orlando Magic meant managing systems under load, coordinating across departments with competing priorities, and delivering for clients who all needed something different and none of them spoke the same language. Before that, 7 years at Northland Church in multi-site broadcast production. Before that, Walt Disney World dinner shows, where a five-piece band, Broadway-caliber performers, and the stage manager could all hear the same show completely differently.</p>
+        <p class="body-lead body-lead-light mt-16" style="font-size:15px">What transferred: the understanding that the audience is there for the experience, not the backstage context. That framing has driven every product decision in this build.</p>
+      </div>
+
+      <div class="builder-detail">
+        <div class="builder-section-title">The Rebuild Story</div>
+        <div class="rebuild-card">
+          <p>The first version was an automation-stitched prototype: Fillout, Make.com, Dropbox, Twilio chained together. It worked in testing. <strong>Field testing revealed it crashed Safari on iPhone when a guide tried to upload a full ride's worth of photos.</strong> The automation chain couldn't handle it.</p>
+          <p style="margin-top:14px">Rather than patch around the failure, the whole approach was rethought. The rebuild became a purpose-built application: more secure, capable of handling video, and no longer dependent on chained third-party automation. The state machine upload flow, the HMAC-signed proxy URLs, the retry logic: all of it came from testing against what actually happens in the field.</p>
+        </div>
+
+        <div class="builder-section-title">The Approach</div>
+        <div class="rebuild-card">
+          <p>No traditional engineering background. <strong>AI as the development partner from the first line of code.</strong> Claude and Claude Code for architecture and implementation. The work is understanding the real problem, choosing the right tools and approach, testing against real conditions, and being willing to start over when the evidence requires it.</p>
+        </div>
+
+        <div class="builder-section-title">Stack</div>
+        <div class="stack-chips">
+          <span class="stack-chip">PHP</span>
+          <span class="stack-chip">Cloudflare R2</span>
+          <span class="stack-chip">Airtable</span>
+          <span class="stack-chip">MailerSend</span>
+          <span class="stack-chip">Uppy</span>
+          <span class="stack-chip">MailerLite</span>
+          <span class="stack-chip">FareHarbor</span>
+          <span class="stack-chip">GitHub</span>
+          <span class="stack-chip">Claude Code</span>
+        </div>
+
+        <div class="builder-section-title" style="margin-top:32px">Also building</div>
+        <div class="stack-chips">
+          <span class="stack-chip" style="opacity:0.6">Custom Crew Gear</span>
+          <span class="stack-chip" style="opacity:0.6">Hidden Palms Ranch Website</span>
+        </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.75);margin-top:10px;line-height:1.6">Custom Crew Gear: bulk apparel platform for production crews; architecture and brand kit complete, launching when AI-assisted print-file generation reaches production quality. Hidden Palms Ranch Website: originally built on Squarespace in 2015; being rebuilt using an AI-native development approach with a long-tail content strategy to capture guests who are not explicitly searching for "horseback riding" but discovering it through broader outdoor experience searches, and optimized for LLM-based discovery alongside traditional search.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ BACKGROUND / RESUME ══════════════════ -->
+<section style="background:var(--dark-2);padding:80px 0;border-top:1px solid rgba(255,255,255,0.06);">
+  <div class="container">
+    <span class="eyebrow eyebrow-light">Background</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:40px;">
+
+      <div>
+        <p style="font-size:10px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.58);margin-bottom:20px;">Experience</p>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;">
+              <span style="font-size:14px;font-weight:700;color:white;">Lead Audio Engineer (A1)</span>
+              <span style="font-size:11px;color:rgba(255,255,255,0.58);white-space:nowrap;">2010 – 2025</span>
+            </div>
+            <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.66);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Orlando Magic / Kia Center</div>
+            <p style="font-size:12px;color:rgba(255,255,255,0.66);line-height:1.6;">Technical ownership of audio operations for a 20,000-seat NBA arena: systems, staff, vendors, and cross-departmental coordination across 200+ annual events.</p>
+          </div>
+
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;">
+              <span style="font-size:14px;font-weight:700;color:white;">Senior Audio Engineer</span>
+              <span style="font-size:11px;color:rgba(255,255,255,0.58);white-space:nowrap;">2003 – 2010</span>
+            </div>
+            <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.66);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Northland Church</div>
+            <p style="font-size:12px;color:rgba(255,255,255,0.66);line-height:1.6;">FOH mix for a 3,330-seat facility; live broadcast to multi-site simulcast venues nationwide.</p>
+          </div>
+
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;">
+              <span style="font-size:14px;font-weight:700;color:white;">Technical Director</span>
+              <span style="font-size:11px;color:rgba(255,255,255,0.58);white-space:nowrap;">2000 – 2003</span>
+            </div>
+            <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.66);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Orangewood Presbyterian Church</div>
+            <p style="font-size:12px;color:rgba(255,255,255,0.66);line-height:1.6;">$150K systems installation from planning through completion; technical team built from scratch.</p>
+          </div>
+
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;">
+              <span style="font-size:14px;font-weight:700;color:white;">Level 2 Audio Technician</span>
+              <span style="font-size:11px;color:rgba(255,255,255,0.58);white-space:nowrap;">1997 – 2000</span>
+            </div>
+            <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.66);text-transform:uppercase;letter-spacing:0.06em;">Walt Disney World</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:28px;">
+
+        <div>
+          <p style="font-size:10px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.58);margin-bottom:14px;">Stack</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">PHP</span>
+            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">Cloudflare R2</span>
+            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">Airtable API</span>
+            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">HTML / CSS / JS</span>
+            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">React</span>
+            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">GitHub</span>
+            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">Shopify</span>
+            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">MailerSend</span>
+            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">Claude Code</span>
+            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">Make.com</span>
+          </div>
+        </div>
+
+        <div>
+          <p style="font-size:10px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.58);margin-bottom:14px;">Education</p>
+          <p style="font-size:13px;font-weight:600;color:white;margin-bottom:3px;">Full Sail University</p>
+          <p style="font-size:11px;color:rgba(255,255,255,0.66);">Associate Degree, Recording Arts · 1995</p>
+        </div>
+
+        <div>
+          <p style="font-size:10px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.58);margin-bottom:14px;">Community</p>
+          <p style="font-size:13px;font-weight:600;color:white;margin-bottom:3px;">PA of the Day</p>
+          <p style="font-size:11px;color:rgba(255,255,255,0.66);line-height:1.6;">Founder. 350,000+ followers across Facebook and Instagram. Professional audio community, active since 2015.</p>
+        </div>
+
+        <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;">
+          <a href="todd-herrbach-resume.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(19,85,199,0.12);border:1px solid rgba(19,85,199,0.25);border-radius:999px;padding:10px 20px;font-size:11px;font-weight:700;color:rgba(255,255,255,0.78);letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v8M2.5 6l4 4 4-4M1 12h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Full Resume
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-name">Todd <strong>Herrbach</strong></div>
+      <div class="footer-links">
+        <a href="mailto:todd.herrbach@gmail.com" class="footer-link">todd.herrbach@gmail.com</a>
+        <a href="https://www.linkedin.com/in/toddherrbach" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:rgba(19,85,199,0.12);border:1px solid rgba(19,85,199,0.25);border-radius:999px;padding:10px 20px;font-size:12px;font-weight:700;color:rgba(255,255,255,0.78);letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;">View LinkedIn <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-fine">
+      Hidden Palms Ranch Guest Photo Delivery System · Case study · In late-stage testing, approaching launch · &copy; 2026 Todd Herrbach
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

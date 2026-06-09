@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todd Herrbach</title>
+<meta name="description" content="Product Engineer. AI-Native Builder. Systems Thinker.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Todd Herrbach">
+<meta property="og:title" content="Todd Herrbach · Product Engineer">
+<meta property="og:description" content="15 years leading audio operations at a 20,000-seat NBA arena. Now building products with AI.">
+<meta property="og:image" content="https://toddherrbach.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://toddherrbach.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Todd Herrbach · Product Engineer">
+<meta name="twitter:description" content="15 years leading audio operations at a 20,000-seat NBA arena. Now building products with AI.">
+<meta name="twitter:image" content="https://toddherrbach.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════
+   TOKENS
+═══════════════════════════════════ */
+:root {
+  --accent:       #1355C7;
+  --accent-green: #1A7A50;
+}
+
+/* ═══════════════════════════════════
+   RESET + SHELL
+═══════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 100%; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #0B1620;
+  min-height: 100vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Hero waveform backdrop — audio to AI, echoes the share card + case study */
+.hero-bg {
+  position: fixed;
+  top: 0; right: 0;
+  width: min(115vw, 1200px);
+  height: min(62vh, 600px);
+  background: url('images/hero-waveform.jpg') no-repeat top right;
+  background-size: cover;
+  opacity: 0.85;
+  z-index: 0;
+  pointer-events: none;
+}
+/* Scrims: keep the left dark for text, dissolve the image into the page before the cards */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(11,22,32,0) 26%, rgba(11,22,32,0.86) 76%, #0B1620 100%),
+    linear-gradient(to left, rgba(11,22,32,0) 0%, rgba(11,22,32,0.62) 50%, #0B1620 84%);
+}
+/* Subtle green depth at the bottom-left */
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -120px; left: -120px;
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(26,122,80,0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══════════════════════════════════
+   PAGE WRAPPER
+═══════════════════════════════════ */
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 780px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 48px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════
+   MAIN: IDENTITY + CARDS
+═══════════════════════════════════ */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 0 48px;
+}
+
+/* ── Identity ── */
+.eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.62);
+  margin-bottom: 24px;
+  display: block;
+}
+
+.name {
+  font-size: clamp(52px, 9vw, 88px);
+  font-weight: 200;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  color: white;
+  margin-bottom: 20px;
+}
+.name strong {
+  font-weight: 800;
+  display: block;
+}
+
+.bio {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.7;
+  max-width: 460px;
+  margin-bottom: 52px;
+}
+
+/* ── Cards ── */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.card {
+  display: block;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 16px;
+  padding: 28px 26px 24px;
+  background: linear-gradient(165deg, rgba(255,255,255,0.07), rgba(255,255,255,0.035));
+  box-shadow: 0 12px 32px rgba(0,0,0,0.28);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s, background 0.25s, transform 0.2s;
+}
+
+/* label-colored accent edge */
+.card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  z-index: 2;
+}
+.card.card-resume::before { background: #9A7820; }
+
+/* per-card glow on hover */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(ellipse at 25% 25%, rgba(19,85,199,0.09) 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.card.card-resume::after {
+  background: radial-gradient(ellipse at 25% 25%, rgba(154,120,32,0.12) 0%, transparent 65%);
+}
+
+.card:hover {
+  border-color: rgba(255,255,255,0.24);
+  background: linear-gradient(165deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  transform: translateY(-3px);
+}
+.card:hover::after { opacity: 1; }
+
+.card-label {
+  display: block;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #5B9BFF;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+.card-resume .card-label { color: #C9A23F; }
+
+.card-title {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.card-sub {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.62);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.62);
+  transition: color 0.2s, gap 0.2s;
+  position: relative;
+  z-index: 1;
+}
+.card:hover .card-cta {
+  color: rgba(255,255,255,0.65);
+  gap: 11px;
+}
+
+/* ═══════════════════════════════════
+   FOOTER
+═══════════════════════════════════ */
+footer {
+  padding: 20px 0 36px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+footer a {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+footer a:hover { color: rgba(255,255,255,0.6); }
+
+.sep {
+  color: rgba(255,255,255,0.1);
+  font-size: 12px;
+}
+
+/* ═══════════════════════════════════
+   MOBILE
+═══════════════════════════════════ */
+@media (max-width: 620px) {
+  .page { padding: 0 24px; }
+  main { padding: 40px 0 40px; justify-content: flex-start; }
+  .cards { grid-template-columns: 1fr; }
+  .name { font-size: clamp(44px, 12vw, 64px); }
+  .hero-bg {
+    width: 100%;
+    height: min(74vh, 660px);
+    background-image: url('images/hero-waveform-mobile.jpg');
+    background-size: contain;
+    background-position: center 20%;
+    opacity: 0.95;
+  }
+  .hero-bg::after { background: none; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="hero-bg" aria-hidden="true"></div>
+
+<div class="page">
+
+  <main>
+
+    <span class="eyebrow">Product Engineer &nbsp;·&nbsp; AI-Native Builder &nbsp;·&nbsp; Systems Thinker</span>
+
+    <div class="name">
+      Todd
+      <strong>Herrbach</strong>
+    </div>
+
+    <p class="bio">15 years leading audio operations at a 20,000-seat NBA arena. Now building products with AI.</p>
+
+    <div class="cards">
+
+      <a href="/hidden-palms-ranch.html" class="card">
+        <span class="card-label">Case Study</span>
+        <span class="card-title">Guest Photo Delivery System</span>
+        <span class="card-sub">Hidden Palms Ranch &nbsp;·&nbsp; Full product build, end to end</span>
+        <span class="card-cta">
+          View case study
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <path d="M1 6.5h11M7 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+
+      <a href="/todd-herrbach-resume.html" class="card card-resume">
+        <span class="card-label">Resume</span>
+        <span class="card-title">Full Background</span>
+        <span class="card-sub">Experience, skills &amp; current projects</span>
+        <span class="card-cta">
+          View resume
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <path d="M1 6.5h11M7 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <a href="mailto:todd.herrbach@gmail.com">todd.herrbach@gmail.com</a>
+    <span class="sep">·</span>
+    <a href="https://www.linkedin.com/in/toddherrbach" target="_blank" rel="noopener">linkedin.com/in/toddherrbach</a>
+  </footer>
+
+</div>
+
+</body>
+</html>
