@@ -35,6 +35,7 @@
   --mid:           #F3F6FA;
   --light:         #FFFFFF;
   --accent:        #1355C7;
+  --primary:       #1355C7;
   --accent-hover:  #0D44A8;
   --accent-green:  #1A7A50;
   --accent-warm:   #C47D20;
@@ -460,42 +461,62 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   max-width: 680px;
   margin-bottom: 64px;
 }
-.phone-gallery {
+/* Feature blocks: two-column phone + companion text (guest + guide sections) */
+.feature-block {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  align-items: start;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+  margin-top: 64px;
 }
-.phone-col {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.feature-block--flip .feature-text  { order: 1; }
+.feature-block--flip .feature-phone { order: 2; }
+.feature-phone { display: flex; justify-content: center; }
+.feature-phone .iphone { max-width: 320px; width: 100%; }
+.feature-eyebrow {
+  color: var(--accent-warm);
+  font-size: 12px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.feature-title {
+  color: var(--primary);
+  font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.feature-body { color: #2a2a2a; font-size: 16px; line-height: 1.7; margin: 0; max-width: 42ch; }
+.feature-block--hero {
+  background: rgba(19, 85, 199, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px;
 }
 .phone-caption {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 12px;
+  color: var(--primary);
+  margin-bottom: 8px;
   text-align: center;
 }
 .phone-note {
+  color: #2a2a2a;
   font-size: 13px;
-  color: var(--muted);
-  line-height: 1.55;
+  line-height: 1.6;
+  margin-top: 10px;
+  max-width: 180px;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
-  margin-top: 12px;
-  font-style: italic;
   text-wrap: pretty;
 }
 
-@media (max-width: 1024px) {
-  .phone-gallery { grid-template-columns: repeat(2, 1fr); gap: 32px; }
-}
 @media (max-width: 600px) {
-  .phone-gallery { grid-template-columns: 1fr; }
-  .phone-gallery .iphone { max-width: 360px; }
+  .feature-block { grid-template-columns: 1fr; gap: 22px; margin-top: 48px; }
+  .feature-block .feature-text  { order: 1; }
+  .feature-block .feature-phone { order: 2; }
+  .feature-phone .iphone { max-width: 360px; }
+  .feature-block--hero { padding: 24px; }
   .hero-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 24px; }
 }
 
@@ -795,6 +816,35 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   line-height: 1.65;
 }
 
+/* Old three-beat guide layout removed; replaced by the .feature-block pattern. */
+.iphone--lg { max-width: 320px; }
+.iphone--sm { max-width: 220px; }
+/* Payoff video: poster frame + play-button overlay; native controls on click */
+.payoff-video { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; background: #1C1C1E; }
+.video-play {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  background: rgba(11, 22, 32, 0.30);
+  border: 0; padding: 0; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.video-play-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  position: relative; transition: transform 0.15s ease, background 0.15s ease;
+}
+.video-play-icon::after {
+  content: ''; position: absolute; top: 50%; left: 54%;
+  transform: translate(-50%, -50%);
+  border-style: solid; border-width: 11px 0 11px 19px;
+  border-color: transparent transparent transparent #fff;
+}
+.video-play:hover .video-play-icon { transform: scale(1.06); background: var(--accent-hover); }
+.video-play-label {
+  font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+  color: #fff; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+}
 @media (max-width: 768px) {
   .guide-cols { grid-template-columns: 1fr; gap: 48px; }
   .guide-phone-row { flex-direction: column; align-items: center; }
@@ -1208,68 +1258,75 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
       <p class="body-lead" style="font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--body);margin-bottom:12px;">What a guest sees after a <strong>Private Trail Ride.</strong></p>
       <p class="body-lead mt-16">Minutes after returning from the trail, the guide shows a QR code. The guest scans it. Everything below loads on their phone.</p>
     </div>
-    <div class="phone-gallery">
-
-      <!-- Phone 1: Hero / Photos -->
-      <div class="phone-col">
-        <div class="phone-caption">Photo Gallery</div>
-        <div class="iphone">
-          <div class="iphone-screen">
-            <!-- REPLACE WITH: guest-page-hero.png -->
-            <img src="images/guest-page-hero.png" alt="Hidden Palms Ranch guest photo page: branded hero and photo grid">
-          </div>
-        </div>
-        <div class="phone-note">Branded header, date stamp, and the full photo grid. Tap any photo to open it in a lightbox and save directly to your camera roll.</div>
+    <!-- 7 feature blocks; odd = phone left, even = text left (--flip) -->
+    <div class="feature-block">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/guest-scroll-1.png" alt="Guest photo page: branded hero, party name, and the featured photo">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">Photos</div>
+        <p class="feature-body">Their photos arrive in a branded experience minutes after they step off their horse.</p>
       </div>
-
-      <!-- Phone 2: Tip card -->
-      <div class="phone-col">
-        <div class="phone-caption">Guide Tips</div>
-        <div class="iphone">
-          <div class="iphone-screen">
-            <!-- REPLACE WITH: guest-page-tips.png -->
-            <img src="images/guest-page-tips.png" alt="Guest page guide tip card with Venmo and Cash App links">
-          </div>
-        </div>
-        <div class="phone-note">Guide headshots, names, and direct links to their Venmo and Cash App. Tips happen while the moment is still fresh. Shown on mobile only. By the time guests open this on a desktop, that moment has passed.</div>
-      </div>
-
-      <!-- Phone 3: Email card -->
-      <div class="phone-col">
-        <div class="phone-caption">Save Your Photos</div>
-        <div class="iphone">
-          <div class="iphone-screen">
-            <!-- REPLACE WITH: guest-page-email.png -->
-            <img src="images/guest-page-email.png" alt="Guest page email-yourself card with photo grid detail">
-          </div>
-        </div>
-        <div class="phone-note">One tap sends a personalized email with a link back to the page and a 30-day download link for all photos, or just the ones the guest hearted as favorites. Also the guest's first entry into the ranch email list. Favorites marked on the guest page surface in the management dashboard for quick review.</div>
-      </div>
-
-      <!-- Phone 4: Rebook -->
-      <div class="phone-col">
-        <div class="phone-caption">Come Back and See Us</div>
-        <div class="iphone">
-          <div class="iphone-screen">
-            <!-- REPLACE WITH: guest-page-rebook.png -->
-            <img src="images/guest-page-rebook.png" alt="Guest page rebook section for a trail ride visit">
-          </div>
-        </div>
-        <div class="phone-note">Trail Ride guests see the NEIGHborhood Riding Club (monthly membership) and a Team Outing waitlist form. The booking button links directly to FareHarbor for their specific visit type.</div>
-      </div>
-
     </div>
 
-    <!-- Desktop view -->
-    <div class="mt-48">
-      <div class="phone-caption text-center" style="margin-bottom:20px">On Desktop: same page, different experience</div>
-      <div class="desktop-frame">
-        <div class="desktop-screen">
-          <!-- REPLACE WITH: guest-page-desktop.png -->
-          <img src="images/guest-page-desktop.png" alt="Guest photo page desktop layout: four-column photo grid">
-        </div>
+    <div class="feature-block feature-block--flip">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/guest-scroll-2.png" alt="Guest photo page: the full photo grid from the visit">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">The full gallery</div>
+        <p class="feature-body">Guests can scan every photo from their visit, tap to enlarge, and heart their favorites to download individually. Version 2 adds a one-tap download of all photos as a zip file on both iPhone and Android.</p>
       </div>
-      <p class="body mt-16" style="max-width:660px;color:var(--muted);font-size:14px;font-style:italic">The email and tip cards are hidden on desktop using CSS <code>:has()</code>, targeting the inner component rather than adding a class. By the time a guest opens this on a laptop, both moments have passed. The desktop version serves the photos and the return path.</p>
+    </div>
+
+    <div class="feature-block">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/guest-scroll-3.png" alt="Guest page: email yourself card with a 30 day download link">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">Save your photos</div>
+        <p class="feature-body">Guests enter their email to send the page link to their inbox so it does not disappear when they close the tab. On desktop, version 1 includes a zip download of all photos and favorited selections. Guide feedback shows 100% of guests complete this step.</p>
+      </div>
+    </div>
+
+    <div class="feature-block feature-block--flip">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/guest-scroll-4.png" alt="Guest page: guide tip cards with Venmo and Cash App links">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">Guide tips</div>
+        <p class="feature-body">Guide profiles and peer-to-peer payment links are managed in Airtable. Adding a new guide takes less than a minute. No code, no developer.</p>
+      </div>
+    </div>
+
+    <div class="feature-block">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/guest-scroll-5.png" alt="Guest page: review buttons for Google, TripAdvisor, and Yelp">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">Leave a review</div>
+        <p class="feature-body">The review prompt appears while guests are still surprised and delighted by the delivery. The drive home is the best window. We never ask again.</p>
+      </div>
+    </div>
+
+    <div class="feature-block feature-block--flip">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/guest-scroll-6.png" alt="Guest page: rebook cards for the next visit">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">Come back and see us</div>
+        <p class="feature-body">Follow-up offers are targeted to the visit type they just completed. The next logical step, not a generic rebook prompt.</p>
+      </div>
+    </div>
+
+    <div class="feature-block">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/guest-scroll-7.png" alt="Guest page: social follow buttons and footer">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">Stay connected</div>
+        <p class="feature-body">Coming in version 2: guests are invited to submit their own photos directly into the media system and share their social handles so we can tag them when we post.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1351,67 +1408,98 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   <div class="container">
     <h2 class="headline-lg" style="font-weight:800;font-size:clamp(28px,3.5vw,44px);margin-bottom:10px;">The Guide Experience</h2>
     <p style="font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--body);margin-bottom:32px;line-height:1.4;">Built for a phone, <strong>on the trail.</strong></p>
-    <div class="guide-cols">
-      <div class="guide-phones">
-        <!-- Top: ready state -->
-        <div class="guide-phone-top">
-          <div class="iphone">
-            <div class="iphone-screen">
-              <!-- REPLACE WITH: guide-app-form.png -->
-              <img src="images/guide-app-form.png" alt="Guide upload app: form and ready state">
-            </div>
-          </div>
-        </div>
-        <!-- Bottom row: mid-upload + complete -->
-        <div class="guide-phone-row">
-          <div class="iphone">
-            <div class="iphone-screen">
-              <!-- REPLACE WITH: guide-app-upload.png -->
-              <img src="images/guide-app-upload.png" alt="Guide upload app: mid-upload progress with the horse on the progress bar">
-            </div>
-          </div>
-          <div class="iphone">
-            <div class="iphone-screen">
-              <!-- REPLACE WITH: guide-app-qr.png -->
-              <img src="images/guide-app-qr.png" alt="Guide upload app: QR complete state">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="guide-detail">
-        <div class="guide-point">
-          <div class="guide-point-num">One-tap access</div>
-          <h4>Password protected, remembered by iCloud Keychain</h4>
-          <p>A 30-day HMAC-signed cookie means guides log in once and the page opens every time. No friction at the end of a visit when guests are waiting.</p>
-        </div>
-        <div class="guide-point">
-          <div class="guide-point-num">Upload flow</div>
-          <h4>State machine, not scattered event handlers</h4>
-          <p>A single <code>appState</code> variable drives everything: list, ready, uploading, complete, error. A horse emoji rides the progress bar. The QR code is hidden until every file succeeds. Partial failures go to a retry state: no starting over, just the failed files retry.</p>
-        </div>
-        <div class="guide-point">
-          <div class="guide-point-num">Marketing permission</div>
-          <h4>Required field. No default. No submit without it.</h4>
-          <p>The guide must actively select yes or no. A guest's photos only enter the marketing library if permission was explicitly granted. Both client-side validation and server-side enforcement.</p>
-        </div>
-        <div class="guide-point">
-          <div class="guide-point-num">Today's dashboard</div>
-          <h4>All submissions visible at the top of the page</h4>
-          <p>After each upload, a dashboard refreshes above the form. Party name, visit type, submission time, QR code and link, so guides can hand the QR to late arrivals without resubmitting.</p>
-        </div>
-        <div class="guide-point">
-          <div class="guide-point-num">Field-tested resilience</div>
-          <h4>It recovers from what actually happens on a ranch</h4>
-          <p>Tested against hard Safari exits mid-upload, the guide switching to another app (a text message, a call), and full network loss from the phone being put in airplane mode. The upload resumes and the state is preserved. A stall indicator fires after 15 seconds of no progress so the guide knows the upload is still running on a slow connection.</p>
-        </div>
-        <div class="guide-point">
-          <div class="guide-point-num">Guide management</div>
-          <h4>Headshots, Venmo, and Cash App managed in Airtable</h4>
-          <p>Every guide's photo, name, Venmo handle, and Cash App handle lives in a single Airtable record. Adding a new guide or updating a link is a one-row edit with no code change required. The guest page pulls the current data on every load.</p>
-        </div>
+    <!-- 8 feature blocks; phone always on the left, video block is the hero -->
+    <div class="feature-block">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/guide-step-1.png" alt="Upload form Step 1: guest or party name typed in">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">Party name</div>
+        <p class="feature-body">This becomes the personalized greeting on the guest landing page.</p>
       </div>
     </div>
+
+    <div class="feature-block">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/guide-step-2.png" alt="Upload form Step 2: visit type selected">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">Visit type</div>
+        <p class="feature-body">Controls the follow-up offers the guest receives. Each visit type maps to the next logical path. The Horse Experience is a lead magnet. The follow-up frames it as an invitation for the parents to return for a trail ride now that the family has seen the ranch.</p>
+      </div>
+    </div>
+
+    <div class="feature-block">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/guide-step-3.png" alt="Upload form Step 3: the uploading guide's name">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">Your name</div>
+        <p class="feature-body">Records who submitted the form.</p>
+      </div>
+    </div>
+
+    <div class="feature-block">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/guide-step-4.png" alt="Upload form Step 4: guides on the visit checked">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">Guides on this visit</div>
+        <p class="feature-body">Triggers the correct tip cards on the guest page, each with that guide's peer-to-peer payment links.</p>
+      </div>
+    </div>
+
+    <div class="feature-block">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/guide-step-5.png" alt="Upload form Step 5: marketing permission with the required field warning">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">Marketing permission</div>
+        <p class="feature-body">Explicit consent with no default. The guide reads the prompt aloud to the group. The form will not submit until an answer is selected. Guides are trained to tell hesitant guests that if anything is ever posted they are not happy with, it comes down immediately, no questions asked.</p>
+      </div>
+    </div>
+
+    <div class="feature-block">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/guide-step-6.png" alt="Upload form: permission answered, form submitting">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">Submit</div>
+        <p class="feature-body">Takes the guide directly to the media upload screen.</p>
+      </div>
+    </div>
+
+    <!-- The star: the upload flow video (hero treatment) -->
+    <div class="feature-block feature-block--hero">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <video class="payoff-video" poster="images/guide-app-upload-poster.jpg"
+               muted playsinline preload="none" controlslist="nodownload"
+               aria-label="The upload flow: Rosie running the progress bar through to the QR reveal">
+          <source src="images/guide-app-upload.mp4" type="video/mp4">
+        </video>
+        <button type="button" class="video-play" aria-label="Play the upload flow video"
+                onclick="var v=this.parentNode.querySelector('video'); v.controls=true; this.style.display='none'; v.play();">
+          <span class="video-play-icon" aria-hidden="true"></span>
+          <span class="video-play-label">Watch the upload flow</span>
+        </button>
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-eyebrow">Watch this one</div>
+        <div class="feature-title">The upload flow</div>
+        <p class="feature-body">A real screen recording of the app, not a simulation. The character running the progress bar is Rosie, modeled after one of the ranch's own horses. Her animation frames were created in ChatGPT and refined for the app.</p>
+      </div>
+    </div>
+
+    <div class="feature-block">
+      <div class="feature-phone"><div class="iphone"><div class="iphone-screen">
+        <img src="images/todays-uploads.png" alt="Today's uploads dashboard: every submission with its QR code and link">
+      </div></div></div>
+      <div class="feature-text">
+        <div class="feature-title">Today's uploads</div>
+        <p class="feature-body">Group rides sometimes include multiple separate parties. If a guest comes back asking for their link after the guide has moved on, today's uploads keeps every submission accessible. The list resets at the start of each new day. Guides can copy any link to their clipboard or open it directly to preview the guest page.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1455,7 +1543,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
       </div>
       <div class="status-right">
         <div class="status-num">
-          <div class="status-num-val">15+</div>
+          <div class="status-num-val">27+</div>
           <div class="status-num-label">Build sessions</div>
         </div>
         <div class="status-num">
