@@ -46,12 +46,13 @@ cd "$LOCAL_ROOT"
 #  -a  archive mode (preserves structure, timestamps, etc.)
 #  -z  compress data during transfer
 #  -i  itemize: print one line per file so you SEE exactly what changes
-#  --chmod=D755,F644  force web-safe permissions on the server (dirs 755,
-#       files 644) REGARDLESS of the local Mac perms. Without this, -a copies
-#       the local folder's permissions up; if the Mac repo is private (700/600)
-#       the server docroot becomes unreadable to Apache and the site 403s.
+#  --no-perms  do NOT copy the Mac's file permissions to the server. Without
+#       this, -a copies local perms up; if the Mac repo is private (700/600)
+#       the server docroot becomes unreadable to Apache and the whole site 403s
+#       (this happened once). With --no-perms, existing server files keep their
+#       (correct) perms and newly created files get the server's default 644/755.
 #  We deliberately DO NOT use --delete, so nothing on the server is removed.
-RSYNC_FLAGS=(-a -z -i --chmod=D755,F644)
+RSYNC_FLAGS=(-a -z -i --no-perms)
 
 # Things that must never be uploaded.
 RSYNC_EXCLUDES=(
