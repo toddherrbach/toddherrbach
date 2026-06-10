@@ -991,6 +991,47 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 }
 
 /* ═══════════════════════════════════════════════
+   SECTION: ROSIE (the only real photography in the project)
+═══════════════════════════════════════════════ */
+.rosie-section { background: #ffffff; }
+.rosie-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px;
+  align-items: stretch;
+  margin-top: 28px;
+}
+.rosie-photo { margin: 0; }
+.rosie-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  border-radius: 16px;
+  display: block;
+}
+.rosie-text {
+  background: #faf8f4;
+  border: 1px solid var(--accent-warm);
+  border-left: 4px solid var(--accent-warm);
+  border-radius: 14px;
+  padding: 34px;
+}
+.rosie-text p { font-size: 18px; line-height: 1.7; color: #2a2a2a; margin: 0; }
+.rosie-text p + p { margin-top: 16px; }
+.rosie-face {
+  float: right;
+  width: 150px;
+  border-radius: 12px;
+  margin: 4px 0 14px 22px;
+  border: 1px solid var(--border);
+}
+@media (max-width: 768px) {
+  .rosie-grid { grid-template-columns: 1fr; gap: 22px; }
+  .rosie-photo img { aspect-ratio: 3 / 2; }
+  .rosie-text { padding: 26px; }
+  .rosie-face { width: 130px; margin: 2px 0 12px 16px; }
+}
+
+/* ═══════════════════════════════════════════════
    SECTION: BUILDER'S NOTE
 ═══════════════════════════════════════════════ */
 .builder-section { background: var(--dark); padding-bottom: 56px; }
@@ -1435,7 +1476,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
       <div class="feature-text">
         <div class="feature-num">07</div>
         <div class="feature-title">Stay connected</div>
-        <p class="feature-body">Coming in version two: guests are invited to submit their own photos directly into the media system and share their social handles so we can tag them when we post.</p>
+        <p class="feature-body">Coming in version 2: guests are invited to submit their own photos directly into the media system and share their social handles so we can tag them when we post.</p>
       </div>
     </div>
   </div>
@@ -1606,7 +1647,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
         <div class="feature-subtitle">A real screen recording, not a simulation.</div>
         <p class="feature-body">The upload status indicator started as a standard progress bar with a large percentage counter, running from 0-100%. Perfectly functional. Then came a horse emoji bouncing down the bar. Then Rosie appeared in the guide playbook, a character built to help trail guides understand why the new system mattered, not just how to use their side of the app. At that point, it felt wrong to leave the upload process with only a number and a boring emoji.</p>
 
-<p class="feature-body" style="margin-top:16px">About ten hours of iteration followed. ChatGPT generated frames but couldn't hold a consistent gait. Animation apps didn't fit the style. Rosie running toward the barn sounded great until the big barn crowded out her running space. Someone watching the process said to let it go.</p>
+<p class="feature-body" style="margin-top:16px">About ten hours of iteration followed. ChatGPT generated frames but couldn't hold a consistent gait. Animation apps didn't fit the style. Rosie running toward the barn sounded great until the big barn crowded out her running space. Someone saw the struggle and said let it go.</p>
 
 <p class="feature-body" style="margin-top:16px">Rosie is modeled after one of the ranch's own horses. Even though a small percentage of users will appreciate attention to details like this, often they trigger a little smile at exactly the right moment for the user.</p>
       </div>
@@ -1623,6 +1664,24 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
       </div>
     </div>
 
+  </div>
+</section>
+
+
+<!-- ═══ ROSIE ════════════════════════════════ -->
+<section class="section rosie-section">
+  <div class="container">
+    <span class="eyebrow eyebrow-warm">Meet Rosie</span>
+    <div class="rosie-grid">
+      <figure class="rosie-photo">
+        <img src="images/rosie-horizontal.jpg" alt="Rosie, one of the ranch's favorite horses, out on the trail">
+      </figure>
+      <div class="rosie-text">
+        <img src="images/rosie-face.jpeg" class="rosie-face" alt="Close-up of Rosie">
+        <p>Rosie is modeled after the real Rosie, one of the ranch's favorite horses. Her animation moment will only ever be seen by the guides at Hidden Palms Ranch. Not its guests. It's not on the website and won't be used in the ranch's marketing.</p>
+        <p>Why is it worth it? Because the products we build are for every user of them. These small touches can turn an opinion from "AirDropping the photos worked just fine" to a silent realization that the tool was not made only to drive more business. It was created with purpose for everyone who used it.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1660,7 +1719,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
       <div class="status-left">
         <div class="status-dot-row">
           <div class="status-dot"></div>
-          <div class="status-label">Late-stage testing, approaching launch</div>
+          <div class="status-label">Live and in use at Hidden Palms Ranch</div>
         </div>
         <div class="status-desc">End-to-end pipeline verified on real iPhone. 29-file upload tested including .mov and .png. Guest page and email delivery confirmed.</div>
       </div>
@@ -1693,7 +1752,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
         <blockquote class="builder-quote">
           "The rehearsals, the arguments, the a/b tests, the last-minute fixes: that's the team's job. By the time the lights go down, none of it should be visible. <em>The work disappears into the moment. That is how you know it was done right.</em>"
         </blockquote>
-        <p class="body-lead body-lead-light mt-32" style="font-size:15px">Nearly 15 years running audio operations at the Orlando Magic meant managing systems under load, coordinating across departments with competing priorities, and delivering for clients who all needed something different and none of them spoke the same language. Before that, 7 years at Northland Church in multi-site broadcast production. Before that, Walt Disney World dinner shows, where a five-piece band, Broadway-caliber performers, and the stage manager could all hear the same show completely differently.</p>
+        <p class="body-lead body-lead-light mt-32" style="font-size:15px">Nearly 15 years running audio operations at the Orlando Magic meant managing systems under load, coordinating across departments with competing priorities, and delivering for clients who all needed something different and none of them spoke the same language. Before that, seven years at Northland Church in multi-site broadcast production. Before that, Walt Disney World dinner shows, where a five-piece band, Broadway-caliber performers, and the stage manager could all hear the same show completely differently.</p>
         <p class="body-lead body-lead-light mt-16" style="font-size:15px">What transferred: the understanding that the audience is there for the experience, not the backstage context. That framing has driven every product decision in this build.</p>
       </div>
 
