@@ -145,12 +145,14 @@ main {
 /* ── Cards ── */
 .cards {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.08fr 1fr;   /* case study wider so its title fits one line; resume keeps its size */
   gap: 14px;
+  margin: 0 -22px;                       /* small breakout so the wider card fits without touching the header/wave */
 }
 
 .card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   border: 1px solid rgba(255,255,255,0.14);
   border-radius: 16px;
@@ -225,10 +227,22 @@ main {
   font-weight: 400;
   color: rgba(255,255,255,0.62);
   line-height: 1.6;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
   position: relative;
   z-index: 1;
 }
+
+.card-accent {
+  display: block;
+  font-size: 12.5px;
+  font-style: italic;
+  line-height: 1.5;
+  color: #8FB4F0;
+  margin-bottom: 22px;
+  position: relative;
+  z-index: 1;
+}
+.card-resume .card-accent { color: #D7B259; }
 
 .card-cta {
   display: inline-flex;
@@ -242,6 +256,8 @@ main {
   transition: color 0.2s, gap 0.2s;
   position: relative;
   z-index: 1;
+  margin-top: auto;
+  align-self: flex-start;
 }
 .card:hover .card-cta {
   color: rgba(255,255,255,0.65);
@@ -282,7 +298,8 @@ footer a:hover { color: rgba(255,255,255,0.6); }
 @media (max-width: 620px) {
   .page { padding: 0 24px; }
   main { padding: 40px 0 14px; justify-content: flex-start; flex: 0 0 auto; }
-  .cards { grid-template-columns: 1fr; gap: 10px; }
+  .cards { grid-template-columns: 1fr; gap: 10px; margin: 0; }
+  .card-accent { display: none; }
   .bio { margin-bottom: 20px; }
   .card { padding: 16px 22px 14px; }
   footer { gap: 10px; padding: 12px 0 16px; }
@@ -323,6 +340,7 @@ footer a:hover { color: rgba(255,255,255,0.6); }
         <span class="card-label">Case Study</span>
         <span class="card-title">Guest Photo Delivery System</span>
         <span class="card-sub">Hidden Palms Ranch &nbsp;·&nbsp; Full product build, end to end</span>
+        <span class="card-accent">From AirDrop to a complete guest experience.</span>
         <span class="card-cta">
           View case study
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
@@ -335,6 +353,7 @@ footer a:hover { color: rgba(255,255,255,0.6); }
         <span class="card-label">Resume</span>
         <span class="card-title">Full Background</span>
         <span class="card-sub">Experience, skills &amp; current projects</span>
+        <span class="card-accent">Two decades making complex systems disappear.</span>
         <span class="card-cta">
           View resume
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
