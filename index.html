@@ -246,9 +246,6 @@ main {
 }
 .card-resume .card-accent { color: rgba(201,162,63,0.85); }  /* RESUME label color (#C9A23F) at 85% */
 
-/* Divider between the stacked cards — mobile only (desktop shows them side-by-side) */
-.card-divider { display: none; }
-
 .card-cta {
   display: inline-flex;
   align-items: center;
@@ -297,6 +294,9 @@ footer a:hover { color: rgba(255,255,255,0.6); }
   font-size: 12px;
 }
 
+/* thin line anchoring the two footer links — mobile only (desktop keeps the inline dot) */
+.footer-line { display: none; }
+
 /* ═══════════════════════════════════
    MOBILE
 ═══════════════════════════════════ */
@@ -308,18 +308,46 @@ footer a:hover { color: rgba(255,255,255,0.6); }
   .bio { margin-bottom: 10px; line-height: 1.45; }
   .cards { grid-template-columns: 1fr; gap: 8px; margin: 0; }
   .card { padding: 14px 22px 12px; }
-  .card-accent { display: block; }   /* show the italic line on mobile too — same colors + spacing formula as desktop */
-  .card-divider { display: block; height: 1px; width: 44px; margin: 0 auto; background: rgba(255,255,255,0.85); }  /* thin line between the two links, link-brightness, centered */
-  footer { gap: 8px; padding: 6px 0 10px; }
+  .card-label { margin-bottom: 16px; }   /* push the headline down a bit (no closer to CASE STUDY / RESUME) */
+  .card-title { font-size: 23px; }        /* headlines ~15% larger on mobile */
+  .card-accent { display: block; }        /* show the italic line on mobile too — same colors + spacing formula as desktop */
+  footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+    padding: 6px 0 10px;
+  }
+  .sep { display: none; }                 /* the inline dot is replaced by the line on mobile */
+  .footer-line {
+    display: block;
+    height: 1px;
+    width: 137px;                         /* 65% of the average of the two link widths (avg ~210px) */
+    background: rgba(255,255,255,0.45);   /* same brightness as the footer links */
+    margin: 1px 0;
+  }
   .hero-bg {
     width: 100%;
     height: 380px;                       /* FIXED height (not vh) so the wave's bright line lands at the same spot on every device */
     background-image: url('images/hero-waveform-mobile.jpg');
     background-size: contain;
-    background-position: center 31%;      /* tuned so the bright center line meets the bottom of the "Herrbach" letters */
+    background-position: center 40%;      /* tuned so the bright center line meets the bottom of the "Herrbach" letters (430px width) */
     opacity: 0.95;
   }
   .hero-bg::after { background: none; }
+}
+
+/* Lock the page on phones + tablets so the hero/text cannot drift (keeps the fixed wave aligned).
+   The window itself is locked (html overflow hidden); the body is a viewport-tall touch region, so a
+   drag only rubber-band bounces and snaps back — the "tiniest of moves," never a real scroll. */
+@media (max-width: 1024px) {
+  html { height: 100%; overflow: hidden; }
+  body {
+    height: 100svh;
+    height: 100dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
 }
 
 </style>
@@ -356,8 +384,6 @@ footer a:hover { color: rgba(255,255,255,0.6); }
         <span class="card-accent">From AirDrop to a complete guest experience.</span>
       </a>
 
-      <div class="card-divider" aria-hidden="true"></div>
-
       <a href="/todd-herrbach-resume.html" class="card card-resume">
         <span class="card-label">Resume</span>
         <span class="card-title">Full Background</span>
@@ -378,6 +404,7 @@ footer a:hover { color: rgba(255,255,255,0.6); }
   <footer>
     <a href="mailto:todd.herrbach@gmail.com">todd.herrbach@gmail.com</a>
     <span class="sep">·</span>
+    <span class="footer-line" aria-hidden="true"></span>
     <a href="https://www.linkedin.com/in/toddherrbach" target="_blank" rel="noopener">linkedin.com/in/toddherrbach</a>
   </footer>
 
