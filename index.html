@@ -148,7 +148,7 @@ main {
   grid-template-columns: 1.09fr 1fr;   /* case study wide enough for title + subhead on one line; resume gets the rest */
   gap: 14px;
   margin: 0 -34px;                       /* breakout so both cards have room without touching the header/wave */
-  align-items: start;                    /* cards size to their own content (boxes don't have to match) */
+  align-items: stretch;                  /* hard rule: both cards exactly the same height */
 }
 
 .card {
@@ -157,7 +157,7 @@ main {
   text-decoration: none;
   border: 1px solid rgba(255,255,255,0.14);
   border-radius: 16px;
-  padding: 28px 26px 24px;
+  padding: 19.6px 26px 22px;
   background: linear-gradient(165deg, rgba(255,255,255,0.07), rgba(255,255,255,0.035));
   box-shadow: 0 12px 32px rgba(0,0,0,0.28);
   position: relative;
@@ -217,7 +217,7 @@ main {
   color: white;
   letter-spacing: -0.015em;
   line-height: 1.15;
-  margin-bottom: 8px;
+  margin-bottom: 3.2px;
   position: relative;
   z-index: 1;
 }
@@ -239,7 +239,7 @@ main {
   font-style: italic;
   line-height: 1.5;
   color: #8FB4F0;
-  margin-top: 12px;
+  margin-top: 6px;
   position: relative;
   z-index: 1;
 }
@@ -249,7 +249,7 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -258,6 +258,7 @@ main {
   position: relative;
   z-index: 1;
   align-self: flex-start;
+  padding: 6px 0;
 }
 .card:hover .card-cta {
   color: rgba(255,255,255,0.65);
