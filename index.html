@@ -44,6 +44,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   background: #0B1620;
   min-height: 100vh;
+  min-height: 100svh;   /* small-viewport height: page locks to the visible area so iOS toolbar never triggers a dismiss-scroll (keeps the fixed wave locked) */
   color: white;
   display: flex;
   flex-direction: column;
@@ -245,6 +246,9 @@ main {
 }
 .card-resume .card-accent { color: rgba(201,162,63,0.85); }  /* RESUME label color (#C9A23F) at 85% */
 
+/* Divider between the stacked cards — mobile only (desktop shows them side-by-side) */
+.card-divider { display: none; }
+
 .card-cta {
   display: inline-flex;
   align-items: center;
@@ -298,19 +302,21 @@ footer a:hover { color: rgba(255,255,255,0.6); }
 ═══════════════════════════════════ */
 @media (max-width: 620px) {
   .page { padding: 0 24px; }
-  main { padding: 40px 0 14px; justify-content: flex-start; flex: 0 0 auto; }
-  .cards { grid-template-columns: 1fr; gap: 10px; margin: 0; }
-  .card-accent { display: none; }
-  .bio { margin-bottom: 20px; }
-  .card { padding: 16px 22px 14px; }
-  footer { gap: 10px; padding: 12px 0 16px; }
-  .name { font-size: clamp(44px, 12vw, 64px); }
+  main { padding: 28px 0 8px; justify-content: flex-start; flex: 0 0 auto; }
+  .eyebrow { margin-bottom: 12px; }
+  .name { font-size: clamp(44px, 12vw, 64px); margin-bottom: 8px; }
+  .bio { margin-bottom: 10px; line-height: 1.45; }
+  .cards { grid-template-columns: 1fr; gap: 8px; margin: 0; }
+  .card { padding: 14px 22px 12px; }
+  .card-accent { display: block; }   /* show the italic line on mobile too — same colors + spacing formula as desktop */
+  .card-divider { display: block; height: 1px; width: 44px; margin: 0 auto; background: rgba(255,255,255,0.85); }  /* thin line between the two links, link-brightness, centered */
+  footer { gap: 8px; padding: 6px 0 10px; }
   .hero-bg {
     width: 100%;
-    height: min(74vh, 660px);
+    height: 380px;                       /* FIXED height (not vh) so the wave's bright line lands at the same spot on every device */
     background-image: url('images/hero-waveform-mobile.jpg');
     background-size: contain;
-    background-position: center 20%;
+    background-position: center 31%;      /* tuned so the bright center line meets the bottom of the "Herrbach" letters */
     opacity: 0.95;
   }
   .hero-bg::after { background: none; }
@@ -349,6 +355,8 @@ footer a:hover { color: rgba(255,255,255,0.6); }
         </span>
         <span class="card-accent">From AirDrop to a complete guest experience.</span>
       </a>
+
+      <div class="card-divider" aria-hidden="true"></div>
 
       <a href="/todd-herrbach-resume.html" class="card card-resume">
         <span class="card-label">Resume</span>
