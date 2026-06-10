@@ -3,3 +3,48 @@
 ## Session 1
 Repo initialized from live site download. Images folder contains current HPR
 case study screenshots. Ready for case study image refresh.
+
+## Session 2 (2026-06-10) — case study polish, homepage design, full mobile pass
+Long build/polish session. Everything deployed and device-tested unless noted.
+
+Deploy / infra:
+- SSH key auth set up for the `dotbacher` DreamHost account; first real deploy done.
+- Fixed a whole-site 403: rsync `-a` had copied the Mac's private perms onto the
+  server; added `--no-perms` to deploy.sh (and chmod 755/644 on the server once).
+
+Case study (hidden-palms-ranch.html):
+- Hero upload-flow video: custom takeover overlay (not native fullscreen) with
+  Watch-again / Resume-case-study end buttons; the phone is reparented to <body> on
+  open to escape a stacking-context trap that left it blurry. Re-encoded the clip from
+  the high-res original to 900x1950 (2.6MB, 29.8s) for crisp desktop playback, and
+  cache-busted the URL with `?v=2` (the identical filename had been serving the old
+  cached long clip).
+- "Meet Rosie" payoff section added right after the video block (the only real
+  photography in the project): horizontal photo + bordered text box (warm accent
+  stripe) + square face photo wrapped by the text; photo credits Carlos Amoedo
+  (horizontal) and Briana Perroux (face).
+- Whole-page spacing/typography audit; logic-table header vertical-align fix.
+
+Homepage (index.html):
+- Two cards redesigned: case study card widened so its title + subhead fit one line;
+  EXACT equal height enforced with `align-items: stretch` (hard rule). CTAs set to 80%
+  of the title size (16px) at 85% white (hover -> full white). Italic curiosity/tagline
+  lines added BELOW each CTA, colored as the label color at 85% (case study blue,
+  resume gold). Resume tagline finalized: "Three decades making complex systems work
+  for everyone, not just the builder."
+- Full MOBILE pass (desktop left as-is throughout):
+  - Locked, no-scroll layout: 100svh + html/body scroll lock so a drag only rubber-band
+    bounces (keeps the fixed wave from drifting; fixes the iOS toolbar-dismiss shift).
+  - Hero wave given a FIXED 380px height so its bright line is device-stable; tuned to
+    sit on the bottom of "Herrbach" at `background-position: center 33%` (calibrated
+    from Pro Max feedback after 31% read high and 40%/37% overshot).
+  - Eyebrow turned into a right-aligned vertical stack (no bullets) that clears the
+    wave's top edge; top padding pulled up so adding the third line didn't move Herrbach.
+  - Footer (email + LinkedIn) made a MATCHED right-aligned stack: dropped the divider
+    line, tightened to the eyebrow's rhythm, raised text to 0.62 white. +15% gap between
+    the bottom card and the footer.
+  - Wave dimming dialed to a midpoint: opacity 0.9 + base scrim at 0.5 (between the
+    original punch and full desktop shading).
+
+Site-wide:
+- All `mailto:` links pre-fill the subject with "Hi Todd".
