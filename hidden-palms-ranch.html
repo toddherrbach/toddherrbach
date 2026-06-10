@@ -1030,12 +1030,13 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 .rosie-text p + p { margin-top: 12px; }
 .rosie-face-fig { float: right; width: 150px; margin: 2px 0 12px 22px; position: relative; }
 .rosie-face { width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block; }
-.rosie-credit { position: absolute; margin: 0; bottom: 10px; left: 14px; font-size: 11px; color: rgba(255,255,255,0.94); text-shadow: 0 1px 5px rgba(0,0,0,0.8); letter-spacing: 0.02em; }
-.rosie-credit--face { left: auto; right: 8px; bottom: 7px; }
+.rosie-credit { position: absolute; margin: 0; bottom: 10px; left: 12px; font-size: 11px; color: #fff; letter-spacing: 0.02em; background: rgba(0,0,0,0.55); padding: 3px 9px; border-radius: 5px; }
+.rosie-credit--face { position: static; bottom: auto; left: auto; right: auto; display: block; text-align: center; background: none; padding: 0; color: var(--muted); margin-top: 6px; }
 @media (max-width: 768px) {
   .rosie-block { padding-left: 20px; padding-right: 20px; }
   .rosie-grid { grid-template-columns: 1fr; gap: 22px; }
   .rosie-photo img { flex: none; aspect-ratio: 3 / 2; height: auto; }
+  .rosie-photo .rosie-credit { bottom: 6px; left: 10px; }
   .rosie-text { padding: 26px; }
   .rosie-face-fig { width: 130px; margin: 2px 0 12px 16px; }
 }
