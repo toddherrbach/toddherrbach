@@ -330,9 +330,9 @@ footer a:hover { color: rgba(255,255,255,0.6); }
     background-image: url('images/hero-waveform-mobile.jpg');
     background-size: contain;
     background-position: center 33%;      /* tuned to device: lands the bright line on the bottom of "Herrbach" (430px width) */
-    opacity: 0.85;                        /* same dimming as desktop — calmer behind the italic lines */
+    opacity: 0.9;                         /* halfway between bright (0.95) and the desktop dimming (0.85) */
   }
-  /* (mobile now inherits the base ::after scrim, same shading as desktop — position/movement unchanged) */
+  .hero-bg::after { opacity: 0.5; }       /* half-strength scrim — split the difference vs desktop's full shading */
 }
 
 /* Lock the page on phones + tablets so the hero/text cannot drift (keeps the fixed wave aligned).
