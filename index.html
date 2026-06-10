@@ -145,9 +145,9 @@ main {
 /* ── Cards ── */
 .cards {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;    /* case study wider so its title + subhead fit one line; resume narrower */
+  grid-template-columns: 1.09fr 1fr;   /* case study wide enough for title + subhead on one line; resume gets the rest */
   gap: 14px;
-  margin: 0 -28px;                       /* breakout so the wider card fits without touching the header/wave */
+  margin: 0 -34px;                       /* breakout so both cards have room without touching the header/wave */
   align-items: start;                    /* cards size to their own content (boxes don't have to match) */
 }
 
@@ -359,7 +359,7 @@ footer a:hover { color: rgba(255,255,255,0.6); }
             <path d="M1 6.5h11M7 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </span>
-        <span class="card-accent">Three decades making complex systems work for everyone.</span>
+        <span class="card-accent">Three decades making complex systems work for everyone, not just the builder.</span>
       </a>
 
     </div>
