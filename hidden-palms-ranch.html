@@ -115,6 +115,7 @@ h1, h2, h3 { line-height: 1.1; letter-spacing: -0.02em; }
   font-weight: 200;
   color: var(--text);
   margin-bottom: 24px;
+  text-wrap: balance;
 }
 .headline-lg strong { font-weight: 700; }
 
@@ -123,6 +124,7 @@ h1, h2, h3 { line-height: 1.1; letter-spacing: -0.02em; }
   font-weight: 200;
   color: var(--light);
   margin-bottom: 20px;
+  text-wrap: balance;
 }
 .headline-md strong { font-weight: 700; }
 
@@ -208,7 +210,8 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   background: linear-gradient(to bottom, rgba(11,22,32,0) 45%, rgba(11,22,32,0.7) 80%, #0B1620 100%);
 }
 @media (max-width: 768px) {
-  .hero { padding: 120px 0 80px; }
+  .hero { padding: 120px 0 56px; }
+  .before-section { padding-top: 56px; }
   .hero-texture { opacity: 0.7; }
 }
 .hero::after {
@@ -249,6 +252,12 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   margin-top: 32px;
   max-width: 580px;
   line-height: 1.6;
+}
+/* Mobile: stack the two phrases, drop the middle dot, align the blue dot to the first line */
+@media (max-width: 600px) {
+  .hero-tag { align-items: flex-start; }
+  .hero-tag::before { margin-top: 4px; }
+  .hero-tag-sep { display: block; height: 0; overflow: hidden; font-size: 0; }
 }
 .hero-meta {
   margin-top: 56px;
@@ -300,6 +309,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
    SECTION: THE BEFORE
 ═══════════════════════════════════════════════ */
 .before-section { background: var(--light); }
+.before-section p.body { font-size: 18px; }
 .before-cols {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -457,7 +467,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 /* ═══════════════════════════════════════════════
    SECTION: GUEST EXPERIENCE
 ═══════════════════════════════════════════════ */
-.guest-section { background: var(--light); padding-top: 48px; padding-bottom: 0; }
+.guest-section { background: var(--light); padding-top: 24px; padding-bottom: 0; }
 .guest-intro {
   max-width: 680px;
   margin-bottom: 0;
@@ -564,7 +574,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   .feature-block { padding-left: 20px; padding-right: 20px; }
 }
 @media (max-width: 600px) {
-  .feature-block { grid-template-columns: 1fr; gap: 22px; padding-top: 40px; padding-bottom: 40px; }
+  .feature-block { grid-template-columns: 1fr; gap: 30px; padding-top: 40px; padding-bottom: 40px; }
   .feature-block .feature-text  { order: 1; }
   .feature-block .feature-phone { order: 2; }
   .feature-phone .iphone { max-width: 360px; }
@@ -722,11 +732,11 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
    SECTION: PRODUCT LOGIC
 ═══════════════════════════════════════════════ */
 .logic-section { background: var(--dark); }
-.logic-intro { max-width: 680px; margin-bottom: 56px; }
+.logic-intro { max-width: 680px; margin-bottom: 28px; }
 .logic-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 16px;
+  margin-top: 8px;
 }
 .logic-table th {
   font-size: 10px;
@@ -1207,7 +1217,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 <section class="hero">
   <div class="hero-texture" aria-hidden="true"></div>
   <div class="container hero-inner">
-    <div class="hero-tag">Hidden Palms Ranch · Guest Photo Delivery System</div>
+    <div class="hero-tag"><span class="hero-tag-text">Hidden Palms Ranch<span class="hero-tag-sep"> · </span>Guest Photo Delivery System</span></div>
     <h1 class="headline-xl">
       The ride ends.
       <strong>The relationship shouldn't.</strong>
@@ -1345,9 +1355,9 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 <section class="section guest-section">
   <div class="container">
     <div class="section-header">
-      <h2 class="headline-lg" style="font-weight:800;font-size:clamp(28px,3.5vw,44px);margin-bottom:10px;">The Guest Experience</h2>
+      <h2 class="headline-lg" style="font-weight:800;font-size:clamp(28px,3.5vw,44px);margin-bottom:6px;">The Guest Experience</h2>
       <div class="guest-intro">
-        <p class="body-lead" style="font-size:clamp(18px,2vw,24px);font-weight:400;color:var(--body);margin-bottom:12px;">What a guest sees after a <strong>Private Trail Ride.</strong></p>
+        <p class="body-lead" style="font-size:clamp(18px,2vw,24px);font-weight:400;color:var(--body);margin-bottom:12px;line-height:1.35;text-wrap:balance;">What a guest sees after a <strong>Private Trail Ride.</strong></p>
         <p class="body-lead mt-16">Minutes after returning from the trail, the guide shows a QR code. The guest scans it. Everything below loads on their phone.</p>
       </div>
     </div>
