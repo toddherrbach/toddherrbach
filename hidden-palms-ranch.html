@@ -1021,16 +1021,16 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
 .rosie-text {
   background: #faf8f4;
   border: 1px solid var(--accent-warm);
-  border-left: 4px solid var(--accent-warm);
+  border-right: 4px solid var(--accent-warm);
   border-radius: 14px;
-  padding: 34px;
+  padding: 30px;
 }
-.rosie-text p { font-size: 18px; line-height: 1.7; color: #2a2a2a; margin: 0; }
-.rosie-text p + p { margin-top: 16px; }
-.rosie-face-fig { float: right; width: 150px; margin: 4px 0 14px 22px; }
+.rosie-text p { font-size: 18px; line-height: 1.5; color: #2a2a2a; margin: 0; }
+.rosie-text p + p { margin-top: 14px; }
+.rosie-face-fig { float: right; width: 150px; margin: 2px 0 12px 22px; }
 .rosie-face { width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block; }
-.rosie-credit { font-size: 11px; color: var(--muted); letter-spacing: 0.02em; margin-top: 8px; }
-.rosie-credit--face { text-align: right; margin-top: 6px; }
+.rosie-credit { font-size: 11px; color: var(--muted); letter-spacing: 0.02em; margin-top: 4px; }
+.rosie-credit--face { text-align: right; margin-top: 4px; }
 @media (max-width: 768px) {
   .rosie-block { padding-left: 20px; padding-right: 20px; }
   .rosie-grid { grid-template-columns: 1fr; gap: 22px; }
@@ -1663,7 +1663,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
     </div>
 
     <!-- Rosie payoff: right after the video, before Today's Uploads -->
-    <div class="rosie-block">
+    <div class="rosie-block" id="meet-rosie">
       <span class="eyebrow eyebrow-warm">Meet Rosie</span>
       <div class="rosie-grid">
         <figure class="rosie-photo">
@@ -1932,7 +1932,7 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   var endPanel = document.getElementById('videoEnd');
   var watchAgain = document.getElementById('videoWatchAgain');
   var resumeBtn  = document.getElementById('videoResume');
-  var target   = document.getElementById('todays-uploads');
+  var target   = document.getElementById('meet-rosie');
   if (!video || !phone || !playBtn) return;
 
   var cell = phone.parentNode;     // .feature-phone grid cell
