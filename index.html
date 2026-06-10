@@ -317,17 +317,18 @@ footer a:hover { color: rgba(255,255,255,0.6); }
   .card-accent { display: block; }        /* show the italic line on mobile too — same colors + spacing formula as desktop */
   footer {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;                /* right-justified, same as the eyebrow stack */
     gap: 7px;
     padding: 6px 0 10px;
   }
+  footer a { text-align: right; }
   .sep { display: none; }                 /* the inline dot is replaced by the line on mobile */
   .footer-line {
     display: block;
     height: 1px;
     width: 137px;                         /* 65% of the average of the two link widths (avg ~210px) */
     background: rgba(255,255,255,0.45);   /* same brightness as the footer links */
-    margin: 1px 0;
+    margin: 1px 24px 1px 0;               /* inset ~3 characters from the right edge so it doesn't run to the edge */
   }
   .hero-bg {
     width: 100%;
