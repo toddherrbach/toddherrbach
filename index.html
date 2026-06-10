@@ -120,6 +120,8 @@ main {
   margin-bottom: 24px;
   display: block;
 }
+/* Desktop: inline phrases with bullet separators (original horizontal look) */
+.eyebrow span:not(:last-child)::after { content: '\00a0·\00a0'; }
 
 .name {
   font-size: clamp(52px, 9vw, 88px);
@@ -302,8 +304,10 @@ footer a:hover { color: rgba(255,255,255,0.6); }
 ═══════════════════════════════════ */
 @media (max-width: 620px) {
   .page { padding: 0 24px; }
-  main { padding: 28px 0 8px; justify-content: flex-start; flex: 0 0 auto; }
-  .eyebrow { margin-bottom: 12px; }
+  main { padding: 16px 0 8px; justify-content: flex-start; flex: 0 0 auto; }   /* pulled up ~12px to offset the now-3-line eyebrow, so Herrbach (and the wave) stay put */
+  .eyebrow { margin-bottom: 12px; text-align: right; line-height: 1.2; }   /* mobile only: vertical stack, right-justified */
+  .eyebrow span { display: block; }
+  .eyebrow span:not(:last-child)::after { content: none; }   /* no bullets when stacked (match desktop selector specificity so this wins) */
   .name { font-size: clamp(44px, 12vw, 64px); margin-bottom: 8px; }
   .bio { margin-bottom: 10px; line-height: 1.45; }
   .cards { grid-template-columns: 1fr; gap: 8px; margin: 0; }
@@ -360,7 +364,7 @@ footer a:hover { color: rgba(255,255,255,0.6); }
 
   <main>
 
-    <span class="eyebrow">Product Engineer &nbsp;·&nbsp; AI-Native Builder &nbsp;·&nbsp; Systems Thinker</span>
+    <div class="eyebrow"><span>Product Engineer</span><span>AI-Native Builder</span><span>Systems Thinker</span></div>
 
     <div class="name">
       Todd
