@@ -1096,6 +1096,20 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
   font-weight: 600;
   color: rgba(255,255,255,0.7);
 }
+/* Background "Hands-On" skills — outline pills with a helper line, distinct from the filled build chips */
+.skill-pill {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  min-height: 40px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 8px;
+  padding: 5px 12px;
+}
+.skill-pill .t { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.82); line-height: 1.25; }
+.skill-pill .h { font-size: 9.5px; font-weight: 500; color: rgba(255,255,255,0.45); line-height: 1.25; }
 .rebuild-card {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
@@ -1856,18 +1870,16 @@ p.body { font-size: 16px; color: var(--body); line-height: 1.75; }
       <div style="display:flex;flex-direction:column;gap:28px;">
 
         <div>
-          <p style="font-size:10px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.58);margin-bottom:14px;">Stack</p>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;">
-            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">PHP</span>
-            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">Cloudflare R2</span>
-            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">Airtable API</span>
-            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">HTML / CSS / JS</span>
-            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">React</span>
-            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">GitHub</span>
-            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">Shopify</span>
-            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">MailerSend</span>
-            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">Claude Code</span>
-            <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);">Make.com</span>
+          <p style="font-size:10px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.58);margin-bottom:14px;">Hands-On</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="skill-pill"><span class="t">Meta Ads</span><span class="h">implementation, lead-gen &amp; retargeting</span></span>
+            <span class="skill-pill"><span class="t">Email marketing</span></span>
+            <span class="skill-pill"><span class="t">Shopify</span></span>
+            <span class="skill-pill"><span class="t">Print-on-demand</span><span class="h">CustomCat</span></span>
+            <span class="skill-pill"><span class="t">ChatGPT</span><span class="h">daily user, 2+ years</span></span>
+            <span class="skill-pill"><span class="t">Claude</span><span class="h">experienced</span></span>
+            <span class="skill-pill"><span class="t">Claude Code</span><span class="h">rapidly progressive understanding</span></span>
+            <span class="skill-pill"><span class="t">Audio over IP</span><span class="h">Dante</span></span>
           </div>
         </div>
 
