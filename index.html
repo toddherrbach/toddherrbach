@@ -301,7 +301,7 @@ footer a:hover { color: rgba(255,255,255,0.6); }
 ═══════════════════════════════════ */
 @media (max-width: 620px) {
   .page { padding: 0 24px; }
-  main { padding: 16px 0 8px; justify-content: flex-start; flex: 0 0 auto; }   /* pulled up ~12px to offset the now-3-line eyebrow, so Herrbach (and the wave) stay put */
+  main { padding: 16px 0 10px; justify-content: flex-start; flex: 0 0 auto; }   /* pulled up ~12px to offset the now-3-line eyebrow, so Herrbach (and the wave) stay put; +2px bottom = ~15% more space before the footer */
   .eyebrow { margin-bottom: 12px; text-align: right; line-height: 1.2; }   /* mobile only: vertical stack, right-justified */
   .eyebrow span { display: block; }
   .eyebrow span:not(:last-child)::after { content: none; }   /* no bullets when stacked (match desktop selector specificity so this wins) */
