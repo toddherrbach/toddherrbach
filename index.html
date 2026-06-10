@@ -296,9 +296,6 @@ footer a:hover { color: rgba(255,255,255,0.6); }
   font-size: 12px;
 }
 
-/* thin line anchoring the two footer links — mobile only (desktop keeps the inline dot) */
-.footer-line { display: none; }
-
 /* ═══════════════════════════════════
    MOBILE
 ═══════════════════════════════════ */
@@ -317,19 +314,16 @@ footer a:hover { color: rgba(255,255,255,0.6); }
   .card-accent { display: block; }        /* show the italic line on mobile too — same colors + spacing formula as desktop */
   footer {
     flex-direction: column;
-    align-items: flex-end;                /* right-justified, same as the eyebrow stack */
-    gap: 7px;
+    align-items: flex-end;                /* right-justified, matching the eyebrow stack */
+    gap: 0;
     padding: 6px 0 10px;
   }
-  footer a { text-align: right; }
-  .sep { display: none; }                 /* the inline dot is replaced by the line on mobile */
-  .footer-line {
-    display: block;
-    height: 1px;
-    width: 137px;                         /* 65% of the average of the two link widths (avg ~210px) */
-    background: rgba(255,255,255,0.45);   /* same brightness as the footer links */
-    margin: 1px 24px 1px 0;               /* inset ~3 characters from the right edge so it doesn't run to the edge */
+  footer a {
+    text-align: right;
+    line-height: 1.2;                     /* same tight rhythm as the eyebrow stack */
+    color: rgba(255,255,255,0.62);        /* same brightness as the eyebrow text */
   }
+  .sep { display: none; }                 /* no separator — footer is a clean stack like the eyebrow */
   .hero-bg {
     width: 100%;
     height: 380px;                       /* FIXED height (not vh) so the wave's bright line lands at the same spot on every device */
@@ -409,7 +403,6 @@ footer a:hover { color: rgba(255,255,255,0.6); }
   <footer>
     <a href="mailto:todd.herrbach@gmail.com">todd.herrbach@gmail.com</a>
     <span class="sep">·</span>
-    <span class="footer-line" aria-hidden="true"></span>
     <a href="https://www.linkedin.com/in/toddherrbach" target="_blank" rel="noopener">linkedin.com/in/toddherrbach</a>
   </footer>
 
