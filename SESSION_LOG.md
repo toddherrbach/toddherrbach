@@ -6,6 +6,10 @@ case study screenshots. Ready for case study image refresh.
 
 ## Session 2 (2026-06-10) — case study polish, homepage design, full mobile pass
 Long build/polish session. Everything deployed and device-tested unless noted.
+(This entry spans TWO conversations: the original build chat, which reached its context
+limit and was carried over as a summary, plus its continuation. Both are captured here —
+the video/SSH/Rosie/cards work came from the prior chat; the full mobile pass + mailto from
+the continuation.)
 
 Deploy / infra:
 - SSH key auth set up for the `dotbacher` DreamHost account; first real deploy done.
@@ -95,5 +99,21 @@ no em dashes in new copy.
   ("Paused at the print-file automation stage ... launches when it does."). Net rendered
   length after the trim: 0 lines (edits +2, trim -2), measured print-accurate at the 4.81in
   right column / 9pt.
-- PENDING: a separate case study consistency pass for hidden-palms-ranch.html is planned and
-  not started. Nothing uncommitted there at deploy time.
+- Case study counterpart (status banner + stat, to match this "Version 1 live" framing)
+  followed in Session 5 below — now DONE.
+
+## Session 5 (2026-06-11) — case study status banner + stat (DEPLOYED)
+hidden-palms-ranch.html only. Commit f4b480b; deployed via deploy.sh (dry-run confirmed a
+case-study-only transfer). Completes the consistency pass flagged pending in Session 4 — the
+case study now matches the resume's "Version 1 live" framing. Text + one stat only; markup,
+styling, images, meta untouched; no em dashes.
+- Status banner reframed. Label: "Live and in use at Hidden Palms Ranch" -> "Version 1 live
+  and in use at Hidden Palms Ranch". Desc replaced with the ongoing-feedback-loop copy:
+  "Every visit now runs through the system. Guides are briefed to report anything that blocks
+  their workflow, anything that glitches, and any guest reaction worth acting on. That
+  feedback sets the next iteration."
+- First stat: "27+ Build sessions" -> "4 Touchpoints per visit". Other two stats (1 Full
+  rebuild, 0 Automation chains) left untouched. Checked at 390px iPhone width: "Touchpoints
+  per visit" wraps to two lines like its neighbors with no overflow, so it was KEPT (the
+  rule's fallback to "Touchpoints" was not needed).
+- Footer "Live and in use, always refining the workflow" left as is.

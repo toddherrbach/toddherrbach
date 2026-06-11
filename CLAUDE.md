@@ -3,6 +3,17 @@
 Personal portfolio site. Three static HTML pages; all CSS is inline in each file
 (the only external dependency is the Google Fonts link). No build step.
 
+## Project state (as of 2026-06-11)
+- The Guest Photo Delivery System is **Version 1 live and in use at Hidden Palms Ranch**.
+  Both the resume project status line and the case study status banner now say this (was
+  "In late-stage testing / Live and in use"). The case study banner's first stat reads
+  "4 Touchpoints per visit" (was "27+ Build sessions").
+- Shared framing on both pages: the build is ongoing; every visit runs through the system;
+  guides report blockers, glitches, and guest reactions, and that feedback sets the next
+  iteration/release. Keep this loop language consistent if either page is edited.
+- The build spans two chat sessions (the original, summarized into context, plus the
+  continuation). SESSION_LOG.md is the running history; Sessions 2–5 cover it.
+
 ## Server / Deploy
 - Site: toddherrbach.com
 - Host: iad1-shared-b7-08.dreamhost.com   (SSH user: dotbacher)
