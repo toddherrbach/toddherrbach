@@ -79,3 +79,21 @@ build stack above it):
   (`.handson-groups` / `.handson-group`) — each group is one line on desktop. On mobile
   (<=768px) the groups stack one-per-line to preserve the mobile list (and the wide Meta
   Ads pill no longer clips as it did in the old 145px column).
+
+## Session 4 (2026-06-11) — resume consistency fixes (DEPLOYED)
+todd-herrbach-resume.html only. Commit 2963ebb; deployed via deploy.sh (dry-run confirmed a
+resume-only transfer; case study and all other files untouched). Print machinery untouched;
+no em dashes in new copy.
+- Project status: "In late-stage testing, approaching launch" -> "Version 1 live and in use
+  at Hidden Palms Ranch".
+- SigV4 bullet: reframed as the architecture decision (sign AWS SigV4 directly in PHP, no
+  SDK and no AWS account, directed through Claude Code); rest of the bullet unchanged.
+- Final project bullet: dropped "served as the primary ... across 15+ build sessions"; now
+  "as the development partner ... The build is ongoing; guides report anything that blocks
+  their workflow or any guest reaction worth acting on, and that feedback sets the next release."
+- Custom Crew Gear bullet 2: conditional trim applied to hold the two-page print
+  ("Paused at the print-file automation stage ... launches when it does."). Net rendered
+  length after the trim: 0 lines (edits +2, trim -2), measured print-accurate at the 4.81in
+  right column / 9pt.
+- PENDING: a separate case study consistency pass for hidden-palms-ranch.html is planned and
+  not started. Nothing uncommitted there at deploy time.
