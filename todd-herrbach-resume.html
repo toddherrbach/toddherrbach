@@ -591,12 +591,12 @@ section { margin-bottom: 0.2in; }
       <div class="project">
         <div class="project-title">Guest Photo Delivery System &nbsp;·&nbsp; Hidden Palms Ranch <a href="https://toddherrbach.com/hidden-palms-ranch.html" class="project-link">toddherrbach.com/hidden-palms-ranch.html</a></div>
         <div class="project-stack">PHP · Cloudflare R2 · Airtable API · MailerSend · GitHub · DreamHost</div>
-        <div class="project-status">In late-stage testing, approaching launch</div>
+        <div class="project-status">Version 1 live and in use at Hidden Palms Ranch</div>
         <ul>
           <li>Designed and built a full-stack web application enabling guides to submit visit data and upload photos via mobile; guests receive a branded photo page via QR code with no app required, personalized by visit type to drive reviews, guide tips, and return bookings.</li>
           <li>Iterated through two complete architectural cycles. The first was a full automation pipeline built on Fillout, Make.com, Dropbox file storage, and Twilio SMS with A2P 10DLC carrier compliance; field testing exposed a critical failure (iPhone Safari memory crash on 50+ file selections), so the entire upload layer was rebuilt on direct-to-R2 presigned PUT URLs, eliminating the constraint at the source.</li>
-          <li>Implemented AWS SigV4 request signing from scratch in PHP without an SDK; structured a multi-table Airtable schema; serve media from a private R2 bucket through an HMAC-signed PHP proxy, with a Cloudflare Images variant pipeline (resizing and HEIC-to-JPEG) as the next build phase.</li>
-          <li>Built using an AI-native workflow throughout: Claude and Claude Code served as the primary development partner for architecture, implementation, debugging, and iteration across 15+ build sessions.</li>
+          <li>Made the architecture decision to sign AWS SigV4 requests directly in PHP with no SDK and no AWS account, directing the implementation through Claude Code; structured a multi-table Airtable schema; serve media from a private R2 bucket through an HMAC-signed PHP proxy, with a Cloudflare Images variant pipeline (resizing and HEIC-to-JPEG) as the next build phase.</li>
+          <li>Built using an AI-native workflow throughout: Claude and Claude Code as the development partner for architecture, implementation, debugging, and iteration. The build is ongoing; guides report anything that blocks their workflow or any guest reaction worth acting on, and that feedback sets the next release.</li>
         </ul>
       </div>
 
@@ -606,7 +606,7 @@ section { margin-bottom: 0.2in; }
         <div class="project-status">Build paused pending print-file tooling</div>
         <ul>
           <li>Took the concept from customer insight through brand identity, pricing structure, email marketing strategy, fulfillment architecture, and customer lifecycle design before a line of code was written. The ordering platform lets customers configure a design once and populate a full staff order via CSV; documented across 12+ working specification files.</li>
-          <li>Build paused at the print-file automation stage, where image generation tooling did not yet exist at the necessary quality. Substantial planning and documentation in progress; the platform will launch when AI-assisted file generation reaches the required standard.</li>
+          <li>Paused at the print-file automation stage, where image generation tooling has not yet reached the necessary quality; the platform launches when it does.</li>
         </ul>
       </div>
 
