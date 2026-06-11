@@ -65,6 +65,25 @@ Personal portfolio site. Three static HTML pages; all CSS is inline in each file
   - Desktop keeps the originals: horizontal eyebrow with bullet separators, horizontal
     footer with a dot. Mobile-only rules live in the <=620px and <=1024px media queries.
 
+## Case study notes (hidden-palms-ranch.html)
+- Long dark single-scroll page. Sections: hero, the system, product thinking, the builder
+  (build stack), Background. Mobile breakpoint is `max-width: 768px` (some 600px).
+- Two pill styles, intentionally different:
+  - `.stack-chip` (filled gray chips) = the BUILD stack ("The Builder" section) — the tools
+    the app was built with.
+  - `.skill-pill` (outline pills, transparent fill + thin border, bold term + optional muted
+    `.h` helper line) = the Background "HANDS-ON" group — Todd's real-history skills.
+- Hands-On is a FULL-WIDTH band directly under the "Background" heading (NOT inside the
+  2-col experience grid — it needs the full ~1020px so each themed group fits one line).
+  Pills are grouped in `.handson-group` rows inside `.handson-groups`; order is AI /
+  commerce / audio. On mobile (<=768px) `.handson-group` switches to a column so pills
+  stack one-per-line. (It was originally in a 480px grid column, which couldn't fit the
+  4 commerce pills on a line — hence the full-width move.)
+- "PA of the Day" community blurb is framed accurately: Todd did NOT found it — he
+  developed/grew an acquired audio social brand 80k -> 350k+, ran an affiliated CustomCat
+  print-on-demand Shopify store, which feeds Custom Crew Gear. Keep "developed/grew," never
+  "founder."
+
 ## Email
 All `mailto:` links (homepage, case study, resume) pre-fill the subject:
 `mailto:todd.herrbach@gmail.com?subject=Hi%20Todd`

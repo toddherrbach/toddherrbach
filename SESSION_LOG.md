@@ -48,3 +48,34 @@ Homepage (index.html):
 
 Site-wide:
 - All `mailto:` links pre-fill the subject with "Hi Todd".
+
+## Session 3 (2026-06-10) — case study copy fixes + Background "Hands-On" skills
+Case study only (hidden-palms-ranch.html). Each change previewed and deployed.
+
+Copy corrections:
+- Guest Experience, "Save your photos" (step 3): "100%" -> "the majority" of guests.
+- Background / Experience, Orlando Magic line: "200+" -> "150+" annual events. (The resume
+  states no event count, so there was nothing to match there.)
+- Community / "PA of the Day": dropped the inaccurate "Founder"; rewrote to the true story
+  pulled from the resume — "Developed a professional live audio social media brand from
+  80,000 to 350,000+ followers across Facebook and Instagram, building the Instagram
+  presence from scratch. Ran an affiliated print-on-demand Shopify store for 10 years,
+  generating the direct customer insight that now drives Custom Crew Gear."
+
+Background "Hands-On" skills (replaced the old "Stack" pill row that just duplicated the
+build stack above it):
+- Relabeled Stack -> Hands-On (a competency level between "working knowledge" and "proficient").
+- New pill style `.skill-pill`: outline pills (transparent fill, thin border) with a bold
+  term + optional muted helper line — deliberately distinct from the filled build `.stack-chip`s.
+- Curated to real-history skills, grouped/ordered AI / commerce / audio:
+  ChatGPT (daily user, 2+ years) · Claude (experienced) · Claude Code (rapidly progressive
+  understanding) | Shopify · Print-on-demand (CustomCat) · Email marketing · Meta Ads
+  (Facebook & Instagram) [lead-gen & retargeting] | Audio over IP (Dante) · Post-production
+  audio mixing · Pro Tools (audio mixing software) · Waves (plug-ins) · iZotope (audio
+  repair & denoise).
+- Desktop wrapping fix: the block was confined to a 480px grid column, so the 4 commerce
+  pills (Meta Ads alone is ~234px) couldn't share a line. Moved Hands-On to a FULL-WIDTH
+  band above the Background grid, with the three groups as their own rows
+  (`.handson-groups` / `.handson-group`) — each group is one line on desktop. On mobile
+  (<=768px) the groups stack one-per-line to preserve the mobile list (and the wide Meta
+  Ads pill no longer clips as it did in the old 145px column).
